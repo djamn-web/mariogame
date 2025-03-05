@@ -16,7 +16,7 @@ class config {
         },
     };
 
-    static version = "4.1.0";       // MajorUpdate.MinorChanges.Fixes
+    static version = "3.1.0";       // MajorUpdate.MinorChanges.Fixes
 
     static player = {
         collideWithWorldBounds: true,
