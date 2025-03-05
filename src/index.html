@@ -21,14 +21,53 @@
   </head>
 
   <body>
-    <div class="flex flex-col w-full">
-      <span class="block">Mario Game</span>
-      <span class="block">Check out my self coded Mario game in Phaser 3</span>
+    <div class="flex justify-between w-full">
+    <div class="flex flex-col w-full p-6">
+      <span class="text-[40px] font-semibold animate-fadeInDown text-black mb-1"
+        >Mario Game</span
+      >
+      <span class="mb-8 italic text-gray-500 animate-fadeInRight"
+        >Check out my self programmed Mario Game in Phaser 3! :)</span
+      >
       <div class="flex flex-row">
         <button>Back to Webpage</button>
         <button>Source Code</button>
       </div>
     </div>
+    <div class="w-auto flex justify-center mr-6 mt-2">
+      <div
+        class="bg-white shadow-md rounded-lg p-4 w-full max-w-lg mb-6 text-left"
+      >
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800">
+          Quick Controls
+        </h2>
+        <ul class="text-gray-700 space-y-2">
+          <li>
+            <b>Jump</b>: Press <kbd>W</kbd> or <kbd>Space</kbd> (Double-click
+            for Double Jump)
+          </li>
+          <li>
+            <b>Move</b>: Use <kbd>Left</kbd>/<kbd>Right</kbd> or
+            <kbd>A</kbd>/<kbd>D</kbd>
+          </li>
+          <li>
+            <b>Shoot</b>: Press <kbd>F</kbd> or <kbd>M</kbd> to shoot enemies
+          </li>
+        </ul>
+        <p class="text-sm mt-4 text-gray-600">
+          <b>Tip:</b> Enable fullscreen mode and landscape mode to play on mobile devices!
+        </p>
+      </div>
+    </div>
+  </div>
+
+    <div
+      class="w-full bg-white border-transparent rounded-full mb-6 p-[0.09rem] bg-gradient-to-r from-white via-gray-200 to-white"
+    >
+      <div class="w-full h-full"></div>
+    </div>
+
+
 
     <div class="relative w-[1000px] mx-auto">
       <!-- Left Joy-Con (blue) -->
@@ -36,8 +75,12 @@
         class="max-lg:hidden absolute top-0 left-0 h-[480px] w-40 -translate-x-full bg-blue-500 rounded-l-full z-10 flex flex-col items-center justify-between py-16"
       >
         <!-- Left analog stick (top) -->
-        <div class="relative w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center">
-          <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
+        <div
+          class="relative w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center"
+        >
+          <div
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center"
+          >
             <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
           </div>
         </div>
@@ -47,13 +90,21 @@
           <!-- Up button -->
           <div class="col-start-2 col-span-1 bg-gray-800 rounded-sm"></div>
           <!-- Left button -->
-          <div class="col-start-1 col-span-1 row-start-2 bg-gray-800 rounded-sm"></div>
+          <div
+            class="col-start-1 col-span-1 row-start-2 bg-gray-800 rounded-sm"
+          ></div>
           <!-- Center -->
-          <div class="col-start-2 col-span-1 row-start-2 bg-gray-700 rounded-sm"></div>
+          <div
+            class="col-start-2 col-span-1 row-start-2 bg-gray-700 rounded-sm"
+          ></div>
           <!-- Right button -->
-          <div class="col-start-3 col-span-1 row-start-2 bg-gray-800 rounded-sm"></div>
+          <div
+            class="col-start-3 col-span-1 row-start-2 bg-gray-800 rounded-sm"
+          ></div>
           <!-- Down button -->
-          <div class="col-start-2 col-span-1 row-start-3 bg-gray-800 rounded-sm"></div>
+          <div
+            class="col-start-2 col-span-1 row-start-3 bg-gray-800 rounded-sm"
+          ></div>
         </div>
 
         <!-- Screenshot button -->
@@ -75,34 +126,50 @@
       >
         <!-- ABXY buttons -->
         <div class="grid grid-cols-2 gap-2 w-20 h-20">
-          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+          <div
+            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+          >
             <span class="text-white font-bold">X</span>
           </div>
-          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+          <div
+            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+          >
             <span class="text-white font-bold">Y</span>
           </div>
-          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+          <div
+            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+          >
             <span class="text-white font-bold">A</span>
           </div>
-          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+          <div
+            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+          >
             <span class="text-white font-bold">B</span>
           </div>
         </div>
 
         <!-- Right analog stick (bottom) -->
-        <div class="relative w-16 h-16 bg-red-700 rounded-full flex items-center justify-center mt-8">
-          <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
+        <div
+          class="relative w-16 h-16 bg-red-700 rounded-full flex items-center justify-center mt-8"
+        >
+          <div
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center"
+          >
             <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
           </div>
         </div>
 
         <!-- Home button -->
-        <div class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center">
+        <div
+          class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center"
+        >
           <div class="w-5 h-5 bg-gray-600 rounded-sm"></div>
         </div>
 
         <!-- + button -->
-        <div class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center">
+        <div
+          class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center"
+        >
           <div class="w-6 h-1 bg-gray-600"></div>
           <div class="w-1 h-6 bg-gray-600 absolute"></div>
         </div>

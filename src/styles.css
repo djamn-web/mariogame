@@ -1,1 +1,121 @@
 @import "tailwindcss";
+
+@theme {
+    --animate-blurIn: blurIn 1.5s ease-out forwards;
+    --animate-blurScaleIn: blurScaleIn 0.7s ease-out forwards;
+    --animate-scaleIn: scaleIn 0.5s ease-out forwards;
+    --animate-blink: blink 1s step-end infinite;
+    --animate-fadeInDown: fadeInDown 0.5s ease-out forwards;
+    --animate-fadeInUp: fadeInUp 0.5s ease-out forwards;
+    --animate-fadeInRight: fadeInRight 0.5s ease-out forwards;
+    --animate-fadeInLeft: fadeInLeft 0.5s ease-out forwards;
+    --animate-fadeInSlow: fadeInSlow 0.5s ease-out forwards;
+    --animate-fadeIn: fadeIn 0.5s ease-out forwards;
+    --animate-bounce: bounce 1.5s infinite;
+
+    @keyframes blurIn {
+        0% {
+          filter: blur(28px);
+        }
+        100% {
+          filter: blur(0px);
+        }
+      }
+    
+      @keyframes scaleIn {
+        0% {
+          transform: scale(0.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    
+      @keyframes blurScaleIn {
+        0% {
+          filter: blur(100px);
+          transform: scale(0.1);
+        }
+        50% {
+          transform: scale(1);
+        }
+        100% {
+          filter: blur(0px);
+        }
+      }
+    
+      @keyframes blink {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+    
+      @keyframes fadeInDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    
+      @keyframes fadeInRight {
+        0% {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    
+      @keyframes fadeInLeft {
+        0% {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    
+      @keyframes fadeInSlow {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+}
+
+
+/* @utility tw-heading {
+    text-[40px]
+    self-center
+    text-center
+    font-semibold
+    mb-10
+    animate-fadeInDown
+  
+    text-black
+
+} */
