@@ -4,30 +4,36 @@
     <script src="./assets/phaser/phaser.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="./output.css" rel="stylesheet" />
+    <script type="module" src="mario.js"></script>
 
     <style>
-      #preview {
-        text-align: center;
+      canvas {
+        display: block;
+        margin: 0 auto;
       }
 
-      /* #preview {
-        width: fit-content;
-        height: fit-content;
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-
-      .testing {
-        width: fit-content;
-        height: fit-content;
-        border: 1px solid red;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      } */
+    
     </style>
   </head>
 
   <body>
-    <div id="preview" name="preview"></div>
-    <script type="module" src="mario.js"></script>
+    <div class="flex flex-col w-full">
+      <span class="block">Mario Game</span>
+      <span class="block">Check out my self coded Mario game in Phaser 3</span>
+      <div class="flex flex-row">
+        <button>Back to Webpage</button>
+        <button>Source Code</button>
+      </div>
+    </div>
+    <div
+      id="preview"
+      name="preview"
+      class="bg-red-500 flex justify-center items-center text-center"
+    ></div>
   </body>
 </html>
