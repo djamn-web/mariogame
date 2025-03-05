@@ -17,7 +17,6 @@
         margin: 0;
         padding: 0;
       }
-    
     </style>
   </head>
 
@@ -30,10 +29,84 @@
         <button>Source Code</button>
       </div>
     </div>
-    <div
-      id="preview"
-      name="preview"
-      class="bg-red-500 flex justify-center items-center text-center"
-    ></div>
+
+    <div class="relative w-[1000px] mx-auto">
+      <!-- Left Joy-Con (blue) -->
+      <div
+        class="max-lg:hidden absolute top-0 left-0 h-[480px] w-40 -translate-x-full bg-blue-500 rounded-l-full z-10 flex flex-col items-center justify-between py-16"
+      >
+        <!-- Left analog stick (top) -->
+        <div class="relative w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center">
+          <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
+            <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
+          </div>
+        </div>
+
+        <!-- Directional buttons -->
+        <div class="grid grid-cols-3 gap-1 w-20 h-20">
+          <!-- Up button -->
+          <div class="col-start-2 col-span-1 bg-gray-800 rounded-sm"></div>
+          <!-- Left button -->
+          <div class="col-start-1 col-span-1 row-start-2 bg-gray-800 rounded-sm"></div>
+          <!-- Center -->
+          <div class="col-start-2 col-span-1 row-start-2 bg-gray-700 rounded-sm"></div>
+          <!-- Right button -->
+          <div class="col-start-3 col-span-1 row-start-2 bg-gray-800 rounded-sm"></div>
+          <!-- Down button -->
+          <div class="col-start-2 col-span-1 row-start-3 bg-gray-800 rounded-sm"></div>
+        </div>
+
+        <!-- Screenshot button -->
+        <div class="w-6 h-6 rounded-full bg-gray-800 mt-8"></div>
+
+        <!-- - button -->
+        <div class="w-8 h-4 rounded-full bg-gray-800 mt-8"></div>
+      </div>
+
+      <div
+        id="preview"
+        name="preview"
+        class="flex justify-center items-center text-center"
+      ></div>
+
+      <!-- Right Joy-Con (red) -->
+      <div
+        class="max-lg:hidden absolute top-0 right-0 h-[480px] w-40 translate-x-full bg-red-500 rounded-r-full z-10 flex flex-col items-center justify-between py-16"
+      >
+        <!-- ABXY buttons -->
+        <div class="grid grid-cols-2 gap-2 w-20 h-20">
+          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+            <span class="text-white font-bold">X</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+            <span class="text-white font-bold">Y</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+            <span class="text-white font-bold">A</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center">
+            <span class="text-white font-bold">B</span>
+          </div>
+        </div>
+
+        <!-- Right analog stick (bottom) -->
+        <div class="relative w-16 h-16 bg-red-700 rounded-full flex items-center justify-center mt-8">
+          <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
+            <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
+          </div>
+        </div>
+
+        <!-- Home button -->
+        <div class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center">
+          <div class="w-5 h-5 bg-gray-600 rounded-sm"></div>
+        </div>
+
+        <!-- + button -->
+        <div class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center">
+          <div class="w-6 h-1 bg-gray-600"></div>
+          <div class="w-1 h-6 bg-gray-600 absolute"></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
