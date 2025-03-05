@@ -108,8 +108,8 @@
 }
 
 
-/* @utility tw-heading {
-    text-[40px]
+.tw-heading {
+  @apply  text-[40px]
     self-center
     text-center
     font-semibold
@@ -118,4 +118,4 @@
   
     text-black
 
-} */
+}

@@ -7,6 +7,7 @@
     <script type="module" src="mario.js"></script>
 
     <style>
+      @reference "./input.css";
       canvas {
         display: block;
         margin: 0 auto;
@@ -21,6 +22,11 @@
   </head>
 
   <body>
+    <img
+    src="assets/mario-world.jpg"
+    class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-50"
+  />
+
     <div class="flex justify-between w-full">
     <div class="flex flex-col w-full p-6">
       <span class="text-[40px] font-semibold animate-fadeInDown text-black mb-1"
