@@ -103,7 +103,7 @@ class BaseLevel extends Phaser.Scene {
         if (!alreadyPreloaded) {
             this.load.scenePlugin({
                 key: 'rexuiplugin',
-                url: './assets/phaser/rexuiplugin.min.js',
+                url: 'https://djamn-webpage.web.app/assets/phaser/rexuiplugin.min.js',
                 sceneKey: 'rexUI'
             });
             alreadyPreloaded = true;
@@ -169,10 +169,22 @@ class BaseLevel extends Phaser.Scene {
         // // object1, object2, collideCallback, processCallback, callbackContext)
         this.physics.add.overlap(mario, enemyLayer, null, null, this);
 
+        this.scale.on('resize', function (gameSize, baseSize, displaySize, resolution) {
+            console.log("Resize");
+            
+            // this.cameras.resize(gameSize.width, gameSize.height);
+        }, this);
+
+        // Force an initial resize
+        this.scale.refresh();
+
         this.createMainButtons();
         if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && config.elementSettings.showMobileButtonsOnDesktop)) this.createMobileButtons();
         this.initializeObjectLayer();
         this.createTexts();
+
+        // // Add resize handler
+
     }
 
     update() {
@@ -751,30 +763,51 @@ function onFloor() {
 }
 
 function toggleFullscreenMode() {
-    if (game.scale.isFullscreen) game.scale.stopFullscreen()
-    else {
-        if (level.sys.game.device.os.desktop) {
+    console.log(game.scale.width);
+    if (game.scale.isFullscreen) {
+        game.scale.stopFullscreen();
+    } else {
+        if (false) {
             game.scale.startFullscreen();
         } else {
-            // Better Fullscreen Handling for Mobile Device
+            // Mobile fullscreen handling
             let canvas = level.sys.game.canvas;
             let fullscreen = level.sys.game.device.fullscreen;
+
+            // Configure scale manager for mobile
+            
+            // game.scale.scaleMode = Phaser.Scale.FIT;
+            // game.scale.autoCenter = Phaser.Scale.CENTER_BOTH;
+
+            // Request fullscreen
             canvas[fullscreen.request]();
 
-            const fullscreenHint = level.add.text(config.canvas.width / 2, config.canvas.height / 1.6, messages.fullscreen_landscape_hit, {
+            // Add a small delay to let the fullscreen transition complete
+            level.time.delayedCall(100, function () {
+                // Refresh the game scale
+                game.scale.refresh();
+            }, [], this);
+
+            const fullscreenHint = level.add.text(config.canvas.width / 2, config.canvas.height / 1.6,
+                messages.fullscreen_landscape_hit, {
                 fontSize: '30px',
                 fill: 'red',
                 align: 'center',
                 stroke: 'darkred',
                 strokeThickness: 1.5
-            }).setScrollFactor(0).setOrigin(0.5);
+            })
+                .setScrollFactor(0)
+                .setOrigin(0.5);
 
-            const landscapeIcon = level.add.image(config.canvas.width / 2, config.canvas.height / 2.2, 'landscape-icon').setScrollFactor(0).setOrigin(0.5);;
+            const landscapeIcon = level.add.image(config.canvas.width / 2,
+                config.canvas.height / 2.2, 'landscape-icon')
+                .setScrollFactor(0)
+                .setOrigin(0.5);
 
             level.time.delayedCall(config.fullscreenHintDisplayDuration, function () {
                 fullscreenHint.destroy();
                 landscapeIcon.destroy();
-            })
+            });
         }
     }
 }

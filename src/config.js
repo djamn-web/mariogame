@@ -3,6 +3,7 @@ class config {
         type: Phaser.AUTO,  // Which renderer to use
         width: 1000,         // Canvas width in pixels
         height: 480,        // Canvas height in pixels
+        mode: Phaser.Scale.FIT,
         parent: "preview",   // ID of the DOM element to add the canvas to
         input: {
             activePointers: 10, // Support up to 10 simultaneous touches
@@ -81,7 +82,7 @@ class config {
 
     static elementSettings = {
         isSettingsMenuInitiallyActive: false,
-        showFullscreenButtonOnDesktop: false,
+        showFullscreenButtonOnDesktop: true,
         showMobileButtonsOnDesktop: false,
         initialSliderValue: 1,
         sliderWidth: 20,
