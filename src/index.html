@@ -27,52 +27,71 @@
     class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-50"
   />
 
-    <div class="flex justify-between w-full">
-    <div class="flex flex-col w-full p-6">
-      <span class="text-[40px] font-semibold animate-fadeInDown text-black mb-1"
-        >Mario Game</span
-      >
-      <span class="mb-8 italic text-gray-500 animate-fadeInRight"
-        >Check out my self programmed Mario Game in Phaser 3! :)</span
-      >
-      <div class="flex flex-row">
-        <button>Back to Webpage</button>
-        <button>Source Code</button>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+        <div class="flex flex-col">
+          <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-black mb-2 animate-fadeInDown drop-shadow-md">
+            Mario Game
+          </h1>
+          <p class="mb-2 text-lg italic text-gray-700 animate-fadeInRight">
+            Check out my self programmed Mario Game in Phaser 3! :)
+          </p>
+
+          <!-- New game description -->
+          <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200 mb-6 max-w-xl">
+            <p class="text-gray-800 leading-relaxed flex flex-col">
+              <span>Help Mario navigate through self-designed levels filled with enemies and obstacles. Collect coins, stomp on Goombas, and try to finish by reaching the flag.</span>
+              <span><b>Disclaimer:</b> I do not own any of these images, they are used from the original Mario game.</span>
+            </p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="bg-red-100 text-red-800 tw-tag">Platform Game</span>
+              <span class="bg-blue-100 text-blue-800 tw-tag">Phaser 3</span>
+              <span class="bg-green-100 text-green-800 tw-tag">JavaScript</span>
+              <span class="bg-yellow-100 text-yellow-800 tw-tag">Multiple Levels</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row space-x-4 mb-8">
+            <button class="bg-red-500 hover:bg-red-600 tw-btn-primary">
+              Back to Webpage
+            </button>
+            <button class="bg-blue-500 hover:bg-blue-600 tw-btn-primary">
+              Source Code
+            </button>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-auto flex max-lg:justify-center">
+          <div class="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 max-w-md">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2 border-gray-200">
+              Quick Controls
+            </h2>
+            <ul class="text-gray-700 space-y-3">
+              <li class="flex items-center">
+                <span class="mr-2 text-red-500">●</span>
+                <span><b>Jump</b>: Press <kbd class="tw-key-control">W</kbd> or <kbd class="tw-key-control">Space</kbd> (Double-click for Double Jump)</span>
+              </li>
+              <li class="flex items-center">
+                <span class="mr-2 text-blue-500">●</span>
+                <span><b>Move</b>: Use <kbd class="tw-key-control">Left</kbd>/<kbd class="tw-key-control">Right</kbd> or <kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded-md text-sm">A</kbd>/<kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded-md text-sm">D</kbd></span>
+              </li>
+              <li class="flex items-center">
+                <span class="mr-2 text-green-500">●</span>
+                <span><b>Shoot</b>: Press <kbd class="tw-key-control">F</kbd> or <kbd class="tw-key-control">M</kbd> to shoot enemies</span>
+              </li>
+            </ul>
+            <div class="mt-5 p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+              <p class="text-sm text-yellow-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="font-semibold mr-2">Tip:</span> <span>Enable fullscreen mode and landscape mode to play on mobile devices!</span>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="w-auto flex justify-center mr-6 mt-2">
-      <div
-        class="bg-white shadow-md rounded-lg p-4 w-full max-w-lg mb-6 text-left"
-      >
-        <h2 class="text-2xl font-semibold mb-4 text-gray-800">
-          Quick Controls
-        </h2>
-        <ul class="text-gray-700 space-y-2">
-          <li>
-            <b>Jump</b>: Press <kbd>W</kbd> or <kbd>Space</kbd> (Double-click
-            for Double Jump)
-          </li>
-          <li>
-            <b>Move</b>: Use <kbd>Left</kbd>/<kbd>Right</kbd> or
-            <kbd>A</kbd>/<kbd>D</kbd>
-          </li>
-          <li>
-            <b>Shoot</b>: Press <kbd>F</kbd> or <kbd>M</kbd> to shoot enemies
-          </li>
-        </ul>
-        <p class="text-sm mt-4 text-gray-600">
-          <b>Tip:</b> Enable fullscreen mode and landscape mode to play on mobile devices!
-        </p>
-      </div>
-    </div>
-  </div>
-
-    <div
-      class="w-full bg-white border-transparent rounded-full mb-6 p-[0.09rem] bg-gradient-to-r from-white via-gray-200 to-white"
-    >
-      <div class="w-full h-full"></div>
-    </div>
-
 
 
     <div class="relative w-[1000px] mx-auto">
