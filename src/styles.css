@@ -130,3 +130,8 @@
 .tw-tag {
   @apply text-xs font-medium px-2.5 py-0.5 rounded-full
 }
+
+.tw-icon {
+  @apply transition-all hover:scale-105 cursor-pointer text-lg duration-200
+  text-gray-900 dark:text-gray-300;
+}
