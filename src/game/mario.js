@@ -99,11 +99,12 @@ class Preload {
 }
 
 class BaseLevel extends Phaser.Scene {
+    // TODO extract url
     preload() {
         if (!alreadyPreloaded) {
             this.load.scenePlugin({
                 key: 'rexuiplugin',
-                url: './assets/phaser/rexuiplugin.min.js',
+                url: 'game/assets/phaser/rexuiplugin.min.js',
                 sceneKey: 'rexUI'
             });
             alreadyPreloaded = true;
