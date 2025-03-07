@@ -1,140 +1,147 @@
 ﻿<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script src="./game/assets/phaser/phaser.min.js"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="./output.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./main-assets/fontawesome/css/all.min.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="./output.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./main-assets/fontawesome/css/all.min.css"/>
     <script type="module" src="game/mario.js"></script>
 
     <style>
-      @reference "./input.css";
-      canvas {
-        display: block;
-        margin: 0 auto;
-      }
+        @reference "./input.css";
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
 
-      body {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <img
-    src="main-assets/mario-world.jpg"
-    class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-50"
-  />
+<body>
+<img
+        src="main-assets/mario-world.jpg"
+        class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-50"
+/>
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex flex-row items-start justify-between gap-8 max-sm:gap-1">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex flex-row items-start justify-between gap-8 max-sm:gap-1">
         <div class="flex flex-col">
-          <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-black mb-2 animate-fadeInDown drop-shadow-md">
-            Mario Game
-          </h1>
-          <p class="mb-2 text-lg italic text-gray-700 animate-fadeInRight">
-            Check out my self programmed Mario Game in Phaser 3! :)
-          </p>
-
-          <!-- New game description -->
-          <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200 mb-6 max-w-xl">
-            <p class="text-gray-800 leading-relaxed flex flex-col">
-              <span>Help Mario navigate through self-designed levels filled with enemies and obstacles. Collect coins, stomp on Goombas, and try to finish by reaching the flag.</span>
-              <span><b>Disclaimer:</b> I do not own any of these images, they are used from the original Mario game.</span>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-black mb-2 animate-fadeInDown drop-shadow-md">
+                Mario Game
+            </h1>
+            <p class="mb-2 text-lg italic text-gray-700 animate-fadeInRight">
+                Check out my self programmed Mario Game in Phaser 3! :)
             </p>
-            <div class="flex flex-wrap gap-2 mt-3">
-              <span class="bg-red-100 text-red-800 tw-tag">Platform Game</span>
-              <span class="bg-blue-100 text-blue-800 tw-tag">Phaser 3</span>
-              <span class="bg-green-100 text-green-800 tw-tag">JavaScript</span>
-              <span class="bg-yellow-100 text-yellow-800 tw-tag">Multiple Levels</span>
-            </div>
-          </div>
 
-          <div class="flex flex-row space-x-4 mb-8">
-            <a href="https://jamnig.net" class="inline-block">
-            <button class="bg-red-500 hover:bg-red-600 tw-btn-primary flex items-center">
-              Back to Webpage <i class="fas fa-external-link-alt ml-2"></i>
-            </button>
-            </a>
-            <a href="https://github.com/djamn-web/mariogame" target="_blank" rel="noopener noreferrer" class="inline-block">
-            <button class="bg-blue-500 hover:bg-blue-600 tw-btn-primary flex items-center">
-              Source Code <i class="fas fa-external-link-alt ml-2"></i>
-            </button>
-            </a>
-          </div>
+            <!-- New game description -->
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200 mb-6 max-w-xl">
+                <p class="text-gray-800 leading-relaxed flex flex-col">
+                    <span>Help Mario navigate through self-designed levels filled with enemies and obstacles. Collect coins, stomp on Goombas, and try to finish by reaching the flag.</span>
+                    <span><b>Disclaimer:</b> I do not own any of these images, they are used from the original Mario game.</span>
+                </p>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <span class="bg-red-100 text-red-800 tw-tag">Platform Game</span>
+                    <span class="bg-blue-100 text-blue-800 tw-tag">Phaser 3</span>
+                    <span class="bg-green-100 text-green-800 tw-tag">JavaScript</span>
+                    <span class="bg-yellow-100 text-yellow-800 tw-tag">Multiple Levels</span>
+                </div>
+            </div>
+
+            <div class="flex flex-row space-x-4 mb-8">
+                <a href="https://jamnig.net" class="inline-block">
+                    <button class="bg-red-500 hover:bg-red-600 tw-btn-primary flex items-center">
+                        Back to Webpage <i class="fas fa-external-link-alt ml-2"></i>
+                    </button>
+                </a>
+                <a href="https://github.com/djamn-web/mariogame" target="_blank" rel="noopener noreferrer"
+                   class="inline-block">
+                    <button class="bg-blue-500 hover:bg-blue-600 tw-btn-primary flex items-center">
+                        Source Code <i class="fas fa-external-link-alt ml-2"></i>
+                    </button>
+                </a>
+            </div>
         </div>
 
         <div class="lg:w-auto flex max-lg:justify-center">
-          <div class="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 max-w-md">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2 border-gray-200">
-              Quick Controls
-            </h2>
-            <ul class="text-gray-700 space-y-3">
-              <li class="flex items-center">
-                <span class="mr-2 text-red-500">●</span>
-                <span><b>Jump</b>: Press <kbd class="tw-key-control">W</kbd> or <kbd class="tw-key-control">Space</kbd> (Double-click for Double Jump)</span>
-              </li>
-              <li class="flex items-center">
-                <span class="mr-2 text-blue-500">●</span>
-                <span><b>Move</b>: Use <kbd class="tw-key-control">Left</kbd>/<kbd class="tw-key-control">Right</kbd> or <kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded-md text-sm">A</kbd>/<kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded-md text-sm">D</kbd></span>
-              </li>
-              <li class="flex items-center">
-                <span class="mr-2 text-green-500">●</span>
-                <span><b>Shoot</b>: Press <kbd class="tw-key-control">F</kbd> or <kbd class="tw-key-control">M</kbd> to shoot enemies</span>
-              </li>
-            </ul>
-            <div class="mt-5 p-3 bg-yellow-50 rounded-lg border border-yellow-100">
-              <p class="text-sm text-yellow-800 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="font-semibold mr-2">Hint:</span> <span>Enable fullscreen and landscape mode to play on mobile devices!</span>
-              </p>
+            <div class="bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 border border-gray-200 max-w-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2 border-gray-200">
+                    Quick Controls
+                </h2>
+                <ul class="text-gray-700 space-y-3">
+                    <li class="flex items-center">
+                        <span class="mr-2 text-red-500">●</span>
+                        <span><b>Jump</b>: Press <kbd class="tw-key-control">W</kbd> or <kbd class="tw-key-control">Space</kbd> (Double-click for Double Jump)</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="mr-2 text-blue-500">●</span>
+                        <span><b>Move</b>: Use <kbd class="tw-key-control">Left</kbd>/<kbd
+                                class="tw-key-control">Right</kbd> or <kbd
+                                class="px-2 py-1 bg-gray-100 border border-gray-300 rounded-md text-sm">A</kbd>/<kbd
+                                class="px-2 py-1 bg-gray-100 border border-gray-300 rounded-md text-sm">D</kbd></span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="mr-2 text-green-500">●</span>
+                        <span><b>Shoot</b>: Press <kbd class="tw-key-control">F</kbd> or <kbd
+                                class="tw-key-control">M</kbd> to shoot enemies</span>
+                    </li>
+                </ul>
+                <div class="mt-5 p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                    <p class="text-sm text-yellow-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="font-semibold mr-2">Hint:</span> <span>Enable fullscreen and landscape mode to play on mobile devices!</span>
+                    </p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
 
 
-    <div class="relative lg:w-[1000px] sm:w-auto mx-auto">
-      <!-- Left Joy-Con (blue) -->
-      <div
-        class="max-lg:hidden absolute top-0 left-0 h-[480px] w-40 -translate-x-full bg-blue-500 rounded-l-full z-10 flex flex-col items-center justify-between py-16"
-      >
+<div class="relative lg:w-[1000px] sm:w-auto mx-auto">
+    <!-- Left Joy-Con (blue) -->
+    <div
+            class="max-lg:hidden absolute top-0 left-0 h-[480px] w-40 -translate-x-full bg-blue-500 rounded-l-full z-10 flex flex-col items-center justify-between py-16"
+    >
         <!-- Left analog stick (top) -->
         <div
-          class="relative w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center"
+                class="relative w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center"
         >
-          <div
-            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center"
-          >
-            <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
-          </div>
+            <div
+                    class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center"
+            >
+                <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
+            </div>
         </div>
 
         <!-- Directional buttons -->
         <div class="grid grid-cols-3 gap-1 w-20 h-20">
-          <!-- Up button -->
-          <div class="col-start-2 col-span-1 bg-gray-800 rounded-sm"></div>
-          <!-- Left button -->
-          <div
-            class="col-start-1 col-span-1 row-start-2 bg-gray-800 rounded-sm"
-          ></div>
-          <!-- Center -->
-          <div
-            class="col-start-2 col-span-1 row-start-2 bg-gray-700 rounded-sm"
-          ></div>
-          <!-- Right button -->
-          <div
-            class="col-start-3 col-span-1 row-start-2 bg-gray-800 rounded-sm"
-          ></div>
-          <!-- Down button -->
-          <div
-            class="col-start-2 col-span-1 row-start-3 bg-gray-800 rounded-sm"
-          ></div>
+            <!-- Up button -->
+            <div class="col-start-2 col-span-1 bg-gray-800 rounded-sm"></div>
+            <!-- Left button -->
+            <div
+                    class="col-start-1 col-span-1 row-start-2 bg-gray-800 rounded-sm"
+            ></div>
+            <!-- Center -->
+            <div
+                    class="col-start-2 col-span-1 row-start-2 bg-gray-700 rounded-sm"
+            ></div>
+            <!-- Right button -->
+            <div
+                    class="col-start-3 col-span-1 row-start-2 bg-gray-800 rounded-sm"
+            ></div>
+            <!-- Down button -->
+            <div
+                    class="col-start-2 col-span-1 row-start-3 bg-gray-800 rounded-sm"
+            ></div>
         </div>
 
         <!-- Screenshot button -->
@@ -142,68 +149,68 @@
 
         <!-- - button -->
         <div class="w-8 h-4 rounded-full bg-gray-800 mt-8"></div>
-      </div>
+    </div>
 
-      <div
-        id="preview"
-        name="preview"
-        class="flex justify-center items-center text-center"
-      ></div>
+    <div
+            id="preview"
+            name="preview"
+            class="flex justify-center items-center text-center"
+    ></div>
 
-      <!-- Right Joy-Con (red) -->
-      <div
-        class="max-lg:hidden absolute top-0 right-0 h-[480px] w-40 translate-x-full bg-red-500 rounded-r-full z-10 flex flex-col items-center justify-between py-16"
-      >
+    <!-- Right Joy-Con (red) -->
+    <div
+            class="max-lg:hidden absolute top-0 right-0 h-[480px] w-40 translate-x-full bg-red-500 rounded-r-full z-10 flex flex-col items-center justify-between py-16"
+    >
         <!-- ABXY buttons -->
         <div class="grid grid-cols-2 gap-2 w-20 h-20">
-          <div
-            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
-          >
-            <span class="text-white font-bold">X</span>
-          </div>
-          <div
-            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
-          >
-            <span class="text-white font-bold">Y</span>
-          </div>
-          <div
-            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
-          >
-            <span class="text-white font-bold">A</span>
-          </div>
-          <div
-            class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
-          >
-            <span class="text-white font-bold">B</span>
-          </div>
+            <div
+                    class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+            >
+                <span class="text-white font-bold">X</span>
+            </div>
+            <div
+                    class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+            >
+                <span class="text-white font-bold">Y</span>
+            </div>
+            <div
+                    class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+            >
+                <span class="text-white font-bold">A</span>
+            </div>
+            <div
+                    class="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center"
+            >
+                <span class="text-white font-bold">B</span>
+            </div>
         </div>
 
         <!-- Right analog stick (bottom) -->
         <div
-          class="relative w-16 h-16 bg-red-700 rounded-full flex items-center justify-center mt-8"
+                class="relative w-16 h-16 bg-red-700 rounded-full flex items-center justify-center mt-8"
         >
-          <div
-            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center"
-          >
-            <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
-          </div>
+            <div
+                    class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center"
+            >
+                <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
+            </div>
         </div>
 
         <!-- Home button -->
         <div
-          class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center"
+                class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center"
         >
-          <div class="w-5 h-5 bg-gray-600 rounded-sm"></div>
+            <div class="w-5 h-5 bg-gray-600 rounded-sm"></div>
         </div>
 
         <!-- + button -->
         <div
-          class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center"
+                class="w-8 h-8 rounded-full bg-gray-800 mt-8 flex items-center justify-center"
         >
-          <div class="w-6 h-1 bg-gray-600"></div>
-          <div class="w-1 h-6 bg-gray-600 absolute"></div>
+            <div class="w-6 h-1 bg-gray-600"></div>
+            <div class="w-1 h-6 bg-gray-600 absolute"></div>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
