@@ -30,6 +30,7 @@ class config {
         doubleJumpHeight: -400,
         moveLeftVelocity: -300,
         moveRightVelocity: 300,
+        flyVelocity: 500,
         frames: {
             frameRate: 10,
             jumpFrame: 5,

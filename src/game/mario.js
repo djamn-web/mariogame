@@ -157,6 +157,7 @@ class BaseLevel extends Phaser.Scene {
             left: 'A',
             right: 'D',
             jump: 'W',
+            fly: 'R',
             shoot1: 'F',
             shoot2: 'M',
             jump2: 'SPACE'
@@ -185,9 +186,14 @@ class BaseLevel extends Phaser.Scene {
             mario.anims.play(config.player.frames.framesName, true);
             mario.body.setVelocityX(config.player.moveRightVelocity);
             mario.setFlipX(config.player.initialFlip);
-        } else { // If player stands still -> No movement, frame 3
+        }
+        else { // If player stands still -> No movement, frame 3
             mario.body.setVelocityX(0);
             if (!isDying) mario.setFrame(config.player.frames.standingStillFrame);
+        }
+
+        if(!isDying && hotkeys.fly.isDown) {
+            mario.body.setVelocityY(-config.player.flyVelocity);
         }
 
         if (!isDying && (Phaser.Input.Keyboard.JustDown(hotkeys.jump) || Phaser.Input.Keyboard.JustDown(hotkeys.jump2) || Phaser.Input.Keyboard.JustDown(cursors.up))) {
