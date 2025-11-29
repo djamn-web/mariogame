@@ -1,5 +1,5 @@
-import { config } from './config.js';
-import { messages } from './messages.js';
+import { config } from './Config.js';
+import { messages } from './Messages.js';
 
 export class Menu {
     create() {
