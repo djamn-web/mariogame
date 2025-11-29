@@ -45,6 +45,7 @@ let music, stageclear, death, coinsound, jumpsound, pop, fire;
 
 // Elements handling
 let volumeSlider, sliderMinus, sliderPlus, reloadGameButton, homeButton, fullscreenButton;
+let snowflakes = [];
 
 class Preload {
     preload() {
@@ -101,6 +102,12 @@ class Preload {
 class BaseLevel extends Phaser.Scene {
     // TODO extract url
     preload() {
+        const graphics = this.add.graphics();
+        graphics.fillStyle(0xffffff, 1);
+        graphics.fillCircle(8, 8, 8);
+        graphics.generateTexture('snowflake', 16, 16);
+        graphics.destroy();
+
         if (!alreadyPreloaded) {
             this.load.scenePlugin({
                 key: 'rexuiplugin',
@@ -174,9 +181,58 @@ class BaseLevel extends Phaser.Scene {
         if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && config.elementSettings.showMobileButtonsOnDesktop)) this.createMobileButtons();
         this.initializeObjectLayer();
         this.createTexts();
+
+        this.time.addEvent({
+            delay: 100,
+            callback: this.createSnowflake,
+            callbackScope: this,
+            loop: true
+        })
+    }
+
+    // TODO
+    createSnowflake() {        
+        const x = Phaser.Math.Between(0, map.widthInPixels);
+        this.createSnowflakeAt(x, 0);
+    }
+
+    createSnowflakeAt(x, y) {
+        let snowflake = this.add.sprite(x, y, 'snowflake');
+        this.physics.world.enable(snowflake);
+
+        const scale = Phaser.Math.FloatBetween(0.5, 1.2);
+        const speed = Phaser.Math.Between(10, 20);
+        const drift = Phaser.Math.Between(-30, 30);
+
+        snowflake.setScale(scale);
+        snowflake.body.setAllowGravity(false);
+        
+
+        
+        snowflake.setAlpha(Phaser.Math.FloatBetween(0.6, 1));
+        snowflake.body.setVelocity(drift, speed);
+
+        this.tweens.add({
+            targets: snowflake,
+            angle: 360,
+            duration: Phaser.Math.Between(3000, 6000),
+            repeat: -1
+        });
+
+        snowflakes.push(snowflake);
     }
 
     update() {
+        // TODO
+        snowflakes = snowflakes.filter(snowflake => {
+            if (snowflake.y >= 800) {
+                snowflake.destroy();
+                return false;
+            }
+            return true;
+        })
+
+
         if (!isDying && (cursors.left.isDown || hotkeys.left.isDown || isMovingLeft)) { // Left movement
             mario.anims.play(config.player.frames.framesName, true);
             mario.setFlipX(!config.player.initialFlip);
