@@ -11,7 +11,7 @@ class config {
             default: 'arcade',       // Which physics engine to use
             arcade: {
                 gravity: { y: 1200 },
-                debug: false              // paint debug information (hitboxes) ee
+                debug: true              // paint debug information (hitboxes) ee
             }
         },
     };
@@ -20,6 +20,8 @@ class config {
 
     static player = {
         collideWithWorldBounds: true,
+        sizeX: 25,
+        sizeY: 50,
         circleRadius: 24.4,
         scaleX: 0.9,
         scaleY: 0.9,
@@ -100,7 +102,7 @@ class config {
 
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
 
-    static startScene = "menu";               // Needs to be determined with startCurrentLevel together (when selecting level)
+    static startScene = "level1";               // Needs to be determined with startCurrentLevel together (when selecting level)
     static startCurrentLevel = 1;
     static finishLevelScreenTime = 5500;        // Determines how long the finish screen should be shown (in ms)
     static leftRightButtonPosition = 100;

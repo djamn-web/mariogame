@@ -140,7 +140,7 @@ class BaseLevel extends Phaser.Scene {
 
         this.physics.world.enable(mario);
         mario.body.setCollideWorldBounds(config.player.collideWithWorldBounds);
-        mario.body.setCircle(config.player.circleRadius);
+        mario.body.setSize(config.player.sizeX, config.player.sizeY)
         mario.setScale(config.player.scaleX, config.player.scaleY)
         mario.setFlipX(config.player.initialFlip);
         mario.body.setMaxVelocity(config.player.maxVelocityX, config.player.maxVelocityY);  //the player will fall through plattforms if gravity is accelerating it to more than 1000px/s
