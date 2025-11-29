@@ -18,11 +18,13 @@ class config {
 
     static version = "3.1.0";       // MajorUpdate.MinorChanges.Fixes
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
-    static startScene = "menu";               // Needs to be determined with startCurrentLevel together (when selecting level)
+    static startScene = "level1";               // Needs to be determined with startCurrentLevel together (when selecting level)
     static startCurrentLevel = 1;
     static finishLevelScreenTime = 5500;        // Determines how long the finish screen should be shown (in ms)
     static leftRightButtonPosition = 100;
     static fullscreenHintDisplayDuration = 3000;
+    static snowyLevels = ["level1"];            // Show snow in specific levels
+    static showSnow = true;                     // General value to show snow in all levels or only specific ones
 
     static player = {
         collideWithWorldBounds: true,
@@ -46,6 +48,22 @@ class config {
             framesName: 'mario-walk',
             walkingAnimation: [1, 2, 3, 4, 3, 2],
         }
+    }
+
+    static snowflake = {
+        colorHex: 0xffffff,
+        createDelayMs: 120,
+        scaleMin: 0.5,
+        scaleMax: 1.1,
+        speedMin: 10,
+        speedMax: 20,
+        driftMin: -30,
+        driftMax: 30,
+        alphaMin: 0.5,
+        alphaMax: 0.8,
+        spinningAngle: 360,
+        spinningDurationMin: 3000,
+        spinningDurationMax: 6000
     }
 
     static goomba = {

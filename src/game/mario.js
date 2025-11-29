@@ -21,7 +21,7 @@ let isDying = false;
 let maxFireballs = config.fire.maxFireballs;
 
 // General
-let mario, camera, map, level, currentLevel;
+let mario, camera, map, level, currentLevel, currentLevelName;
 
 // background
 let clouds, green, darkgreen;
@@ -103,7 +103,7 @@ class BaseLevel extends Phaser.Scene {
     // TODO extract url
     preload() {
         const graphics = this.add.graphics();
-        graphics.fillStyle(0xffffff, 1);
+        graphics.fillStyle(config.snowflake.colorHex, 1);
         graphics.fillCircle(8, 8, 8);
         graphics.generateTexture('snowflake', 16, 16);
         graphics.destroy();
@@ -121,6 +121,7 @@ class BaseLevel extends Phaser.Scene {
     create() {
         if (!music.isPlaying) { music.play(); }
         currentLevel = config.startCurrentLevel;
+        currentLevelName = levels[currentLevel - 1].name;
         map = this.make.tilemap({ key: levels[currentLevel - 1].name }); //Creates Tilemap with name map
 
         // Background
@@ -146,6 +147,7 @@ class BaseLevel extends Phaser.Scene {
         })[0]
 
         this.physics.world.enable(mario);
+        mario.setDepth(1)
         mario.body.setCollideWorldBounds(config.player.collideWithWorldBounds);
         mario.body.setSize(config.player.sizeX, config.player.sizeY)
         mario.setScale(config.player.scaleX, config.player.scaleY)
@@ -182,57 +184,18 @@ class BaseLevel extends Phaser.Scene {
         this.initializeObjectLayer();
         this.createTexts();
 
-        this.time.addEvent({
-            delay: 100,
-            callback: this.createSnowflake,
-            callbackScope: this,
-            loop: true
-        })
-    }
-
-    // TODO
-    createSnowflake() {        
-        const x = Phaser.Math.Between(0, map.widthInPixels);
-        this.createSnowflakeAt(x, 0);
-    }
-
-    createSnowflakeAt(x, y) {
-        let snowflake = this.add.sprite(x, y, 'snowflake');
-        this.physics.world.enable(snowflake);
-
-        const scale = Phaser.Math.FloatBetween(0.5, 1.2);
-        const speed = Phaser.Math.Between(10, 20);
-        const drift = Phaser.Math.Between(-30, 30);
-
-        snowflake.setScale(scale);
-        snowflake.body.setAllowGravity(false);
-        
-
-        
-        snowflake.setAlpha(Phaser.Math.FloatBetween(0.6, 1));
-        snowflake.body.setVelocity(drift, speed);
-
-        this.tweens.add({
-            targets: snowflake,
-            angle: 360,
-            duration: Phaser.Math.Between(3000, 6000),
-            repeat: -1
-        });
-
-        snowflakes.push(snowflake);
+        // Snowflakes handling   
+        if (config.snowyLevels.includes(currentLevelName) || config.showSnow) {
+            this.time.addEvent({
+                delay: config.snowflake.createDelayMs,
+                callback: this.createSnowflake,
+                callbackScope: this,
+                loop: true
+            })
+        }
     }
 
     update() {
-        // TODO
-        snowflakes = snowflakes.filter(snowflake => {
-            if (snowflake.y >= 800) {
-                snowflake.destroy();
-                return false;
-            }
-            return true;
-        })
-
-
         if (!isDying && (cursors.left.isDown || hotkeys.left.isDown || isMovingLeft)) { // Left movement
             mario.anims.play(config.player.frames.framesName, true);
             mario.setFlipX(!config.player.initialFlip);
@@ -280,6 +243,14 @@ class BaseLevel extends Phaser.Scene {
             }
         })
 
+        snowflakes = snowflakes.filter(snowflake => {
+            if (snowflake.y >= map.widthInPixels) {
+                snowflake.destroy();
+                return false;
+            }
+            return true;
+        })
+
         music.setVolume(sliderValue);
         jumpsound.setVolume(sliderValue);
         stageclear.setVolume(sliderValue);
@@ -287,6 +258,33 @@ class BaseLevel extends Phaser.Scene {
         fire.setVolume(sliderValue);
         pop.setVolume(sliderValue);
         coinsound.setVolume(sliderValue);
+    }
+
+    createSnowflake() {
+        const x = Phaser.Math.Between(0, map.widthInPixels);
+        const y = 0;
+        const scale = Phaser.Math.FloatBetween(config.snowflake.scaleMin, config.snowflake.scaleMax);
+        const alpha = Phaser.Math.FloatBetween(config.snowflake.alphaMin, config.snowflake.alphaMax);
+        const speed = Phaser.Math.Between(config.snowflake.speedMin, config.snowflake.speedMax);
+        const drift = Phaser.Math.Between(config.snowflake.driftMin, config.snowflake.driftMax);
+
+        let snowflake = this.add.sprite(x, y, 'snowflake');
+        this.physics.world.enable(snowflake);
+
+        snowflake.setScale(scale);
+        snowflake.body.setAllowGravity(false);
+        snowflake.setAlpha(alpha);
+        snowflake.body.setVelocity(drift, speed);
+
+        // spinning 360 degrees instead of falling down just with drifting
+        this.tweens.add({
+            targets: snowflake,
+            angle: config.snowflake.spinningAngle,
+            duration: Phaser.Math.Between(config.snowflake.spinningDurationMin, config.snowflake.spinningDurationMax),
+            repeat: -1
+        });
+
+        snowflakes.push(snowflake);
     }
 
     createText(x, y, text, fontSize, fillColor, stroke, strokeThickness) {
