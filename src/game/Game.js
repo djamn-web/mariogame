@@ -24,7 +24,7 @@ let maxFireballs = config.fire.maxFireballs;
 let mario, camera, map, level, currentLevel, currentLevelName;
 
 // background
-let clouds, green, darkgreen;
+let skyLayer, middleLayer, foregroundLayer;
 
 // Layers
 let enemyLayer, floorLayer, backgroundLayer;
@@ -125,9 +125,9 @@ class BaseLevel extends Phaser.Scene {
         map = this.make.tilemap({ key: levels[currentLevel - 1].name }); //Creates Tilemap with name map
 
         // Background
-        clouds = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds').setOrigin(0, 0);
-        green = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes').setOrigin(0, 0);
-        darkgreen = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees').setOrigin(0, 0);
+        skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'skyLayer').setOrigin(0, 0);
+        middleLayer = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes').setOrigin(0, 0);
+        foregroundLayer = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees').setOrigin(0, 0);
 
         // Layer creation
         const floorTiles = map.addTilesetImage('mariotiles');
@@ -225,9 +225,9 @@ class BaseLevel extends Phaser.Scene {
         }
 
         // parallax
-        green.x = camera.scrollX * 0.5;
-        darkgreen.x = camera.scrollX * 0.3;
-        clouds.x = camera.scrollX * 0.8;
+        middleLayer.x = camera.scrollX * 0.5;
+        foregroundLayer.x = camera.scrollX * 0.3;
+        skyLayer.x = camera.scrollX * 0.8;
 
         bullets.forEach(bullet => {
             if (bullet && bullet.active && bullet.data && bullet.data.values) {
@@ -589,21 +589,21 @@ class Level3 extends BaseLevel {
         level = this;
         super.create();
 
-        clouds.destroy();
-        green.destroy();
-        darkgreen.destroy();
+        skyLayer.destroy();
+        middleLayer.destroy();
+        foregroundLayer.destroy();
 
-        clouds = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds-winter');
-        clouds.setOrigin(0,0)
-        clouds.setDepth(-3);
+        skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'skyLayer-winter');
+        skyLayer.setOrigin(0,0)
+        skyLayer.setDepth(-3);
 
-        green = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes-winter');
-        green.setOrigin(0,0)
-        green.setDepth(-2);
+        middleLayer = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes-winter');
+        middleLayer.setOrigin(0,0)
+        middleLayer.setDepth(-2);
 
-        darkgreen = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees-winter');
-        darkgreen.setOrigin(0,0)
-        darkgreen.setDepth(-1);
+        foregroundLayer = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees-winter');
+        foregroundLayer.setOrigin(0,0)
+        foregroundLayer.setDepth(-1);
     }
 
     update() {
