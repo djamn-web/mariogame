@@ -11,15 +11,15 @@ class config {
             default: 'arcade',       // Which physics engine to use
             arcade: {
                 gravity: { y: 1200 },
-                debug: true              // paint debug information (hitboxes) ee
+                debug: false              // paint debug information (hitboxes) ee
             }
         },
     };
 
     static version = "3.1.0";       // MajorUpdate.MinorChanges.Fixes
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
-    static startScene = "level3";               // Needs to be determined with startCurrentLevel together (when selecting level)
-    static startCurrentLevel = 3;
+    static startScene = "menu";               // Needs to be determined with startCurrentLevel together (when selecting level)
+    static startCurrentLevel = 1;
     static finishLevelScreenTime = 5500;        // Determines how long the finish screen should be shown (in ms)
     static leftRightButtonPosition = 100;
     static fullscreenHintDisplayDuration = 3000;
