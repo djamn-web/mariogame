@@ -1,8 +1,8 @@
 export const AssetConfig = {
     images: [
         { key: 'clouds', path: 'game/assets/images/clouds.png' },
-        { key: 'darkgreen', path: 'game/assets/images/tree_background.png' },
-        { key: 'green', path: 'game/assets/images/foreground.png' },
+        { key: 'tree-foreground', path: 'game/assets/images/tree_foreground.png' },
+        { key: 'green-background', path: 'game/assets/images/green_background.png' },
         { key: 'clouds-winter', path: 'game/assets/images/clouds_winter.png' },
         { key: 'tree-background-winter', path: 'game/assets/images/tree_background_winter.png' },
         { key: 'foreground-winter', path: 'game/assets/images/foreground_winter.png' },

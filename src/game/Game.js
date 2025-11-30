@@ -126,8 +126,8 @@ class BaseLevel extends Phaser.Scene {
 
         // Background
         clouds = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds').setOrigin(0, 0);
-        green = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'green').setOrigin(0, 0);
-        darkgreen = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'darkgreen').setOrigin(0, 0);
+        green = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'green-background').setOrigin(0, 0);
+        darkgreen = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'tree-foreground').setOrigin(0, 0);
 
         // Layer creation
         const floorTiles = map.addTilesetImage('mariotiles');
