@@ -1,3 +1,0 @@
-Krita Color Switch: Ebenen -> + -> New Filter Layer -> HSV/HSL
-Grid: Ansicht -> Gitter anzeigen
-Grid bearbeiten: Einstellungen -> Andockbare Dialoge -> Gitter und Hilfslinien

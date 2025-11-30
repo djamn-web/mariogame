@@ -1,0 +1,6 @@
+Krita Color Switch: Ebenen -> + -> New Filter Layer -> HSV/HSL
+Grid: Ansicht -> Gitter anzeigen
+Grid bearbeiten: Einstellungen -> Andockbare Dialoge -> Gitter und Hilfslinien
+
+Tiled
+Add new Game Objects: Objekt auswählen -> T klicken -> dann in der Map einfügen
