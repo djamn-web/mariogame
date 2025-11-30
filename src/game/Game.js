@@ -565,6 +565,22 @@ class Level3 extends BaseLevel {
     }
 }
 
+class Level4 extends BaseLevel {
+    preload() {
+        super.preload();
+    }
+
+    create() {
+        level = this;
+        super.create();
+    }
+
+    update() {
+        super.update();
+    }
+}
+
+
 
 //mario dies - Settings
 function playerDie(showDieAnimation = true) {
@@ -842,6 +858,7 @@ var levels = [
     { name: 'level1', classRef: Level1 },
     { name: 'level2', classRef: Level2 },
     { name: 'level3', classRef: Level3 },
+    { name: 'level4', classRef: Level4 },
 ];
 
 var game = new Phaser.Game(config.canvas);  //main game instance - using the config object

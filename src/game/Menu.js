@@ -36,8 +36,11 @@ export class Menu {
         widthLine1 += generalLevelWidth;
 
         this.createText(widthLine1, height / 1.5, messages.menu_level4, '28px', '#000', '#000', 0.5);
-        this.createText(widthLine1, height / 1.35, messages.nan, '28px', 'darkred', '#000', 0);
-        this.createButton(widthLine1, height / 1.8, 'button', () => console.log("No level"));
+        // this.createText(widthLine1, height / 1.35, messages.nan, '28px', 'darkred', '#000', 0);
+        this.createButton(widthLine1, height / 1.8, 'button', () => {
+            config.startCurrentLevel = 4;
+            this.scene.start("level4")
+        });
 
         this.createText(width * 0.9, height * 0.9, version, "18px", '#000', '#000', 0);
     }
