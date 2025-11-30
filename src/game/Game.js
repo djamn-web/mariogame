@@ -231,7 +231,30 @@ class BaseLevel extends Phaser.Scene {
 
         bullets.forEach(bullet => {
             if (bullet && bullet.active && bullet.data && bullet.data.values) {
-                if (bullet.x < bullet.data.values.bullet_setback_x || bullet.y < bullet.data.values.bullet_setback_y) {
+                const setbackX = bullet.data.values.bullet_setback_x;
+                const setbackY = bullet.data.values.bullet_setback_y;
+
+                let shouldSetback = false;
+
+                // Check X direction
+                if (setbackX !== undefined || setbackX !== -1) {
+                    if (bullet.body.velocity.x > 0) {
+                        shouldSetback = bullet.x >= setbackX;
+                    } else if (bullet.body.velocity.x < 0) {
+                        shouldSetback = bullet.x <= setbackX;
+                    }
+                }
+
+                // Check Y direction (if X didn't trigger)
+                if (!shouldSetback && setbackY !== undefined || setbackY !== -1) {
+                    if (bullet.body.velocity.y > 0) {
+                        shouldSetback = bullet.y >= setbackY;
+                    } else if (bullet.body.velocity.y < 0) {
+                        shouldSetback = bullet.y <= setbackY;
+                    }
+                }
+
+                if (shouldSetback) {
                     bullet.setPosition(bullet.startingX, bullet.startingY);
                 }
             }
@@ -405,6 +428,13 @@ class BaseLevel extends Phaser.Scene {
             name: 'bullet',
             key: 'bullet',
         })
+
+        const redBullets = map.createFromObjects('gameobjects', {
+            name: 'bullet-red',
+            key: 'bullet-red',
+        });
+
+        bullets.push(...redBullets);
 
         bullets.forEach(bullet => {
             this.physics.world.enable(bullet);

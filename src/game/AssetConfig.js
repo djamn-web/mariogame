@@ -4,6 +4,7 @@ export const AssetConfig = {
         { key: 'darkgreen', path: 'game/assets/images/darkgreen.png' },
         { key: 'green', path: 'game/assets/images/green.png' },
         { key: 'bullet', path: 'game/assets/images/bullet.png' },
+        { key: 'bullet-red', path: 'game/assets/images/bullet-red.png' },
         { key: 'mariotiles', path: 'game/assets/images/mariotiles.png' },
         { key: 'fireball', path: 'game/assets/images/fireball-small.png' },
         { key: 'coins', path: 'game/assets/images/coin_new.png' },
