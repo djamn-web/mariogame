@@ -114,19 +114,24 @@
                         {
                          "name":"bullet_setback_x",
                          "type":"int",
-                         "value":1945
+                         "value":1936
                         }, 
                         {
                          "name":"bullet_setback_y",
                          "type":"int",
                          "value":-1
+                        }, 
+                        {
+                         "name":"velocity_x",
+                         "type":"int",
+                         "value":-200
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":2206.66666666667,
-                 "y":340
+                 "x":2344.66666666667,
+                 "y":332
                 }, 
                 {
                  "gid":402,
@@ -364,7 +369,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":61,
+ "nextobjectid":64,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
