@@ -588,6 +588,22 @@ class Level3 extends BaseLevel {
     create() {
         level = this;
         super.create();
+
+        clouds.destroy();
+        green.destroy();
+        darkgreen.destroy();
+
+        clouds = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds-winter');
+        clouds.setOrigin(0,0)
+        clouds.setDepth(-3);
+
+        green = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes-winter');
+        green.setOrigin(0,0)
+        green.setDepth(-2);
+
+        darkgreen = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees-winter');
+        darkgreen.setOrigin(0,0)
+        darkgreen.setDepth(-1);
     }
 
     update() {
