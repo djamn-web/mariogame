@@ -310,8 +310,8 @@ class BaseLevel extends Phaser.Scene {
         snowflakes.push(snowflake);
     }
 
-    createText(x, y, text, fontSize, fillColor, stroke, strokeThickness) {
-        return this.add.text(x, y, text, { fontSize: fontSize, fill: fillColor, stroke: stroke, strokeThickness: strokeThickness }).setScrollFactor(0);
+    createText(x, y, text, fontSize, fillColor, stroke, strokeThickness, fontStyle = "normal") {
+        return this.add.text(x, y, text, { fontSize: fontSize, fill: fillColor, stroke: stroke, strokeThickness: strokeThickness, fontStyle: fontStyle }).setScrollFactor(0);
     }
 
     createMainButtons() {
@@ -444,7 +444,7 @@ class BaseLevel extends Phaser.Scene {
             bullet.startingX = bullet.x;
             bullet.startingY = bullet.y;
 
-            if(bullet.data && bullet.data.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
+            if (bullet.data && bullet.data.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
 
             totalPossiblePointsInLevel += config.bullet.bulletHitPoints;
         })
@@ -542,10 +542,10 @@ class BaseLevel extends Phaser.Scene {
 
     createTexts() {
         // Text
-        scoreText = this.createText(16, 16, messages.score_message.replace("{0}", score).replace("{1}", totalPossiblePointsInLevel), '22px', '#000', '#000', 0);
-        coinsText = this.createText(16, 40, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0);
-        failsText = this.createText(16, 64, messages.failscounter_message + fails, '22px', '#000', '#000', 0);
-        jumpsText = this.createText(16, 88, messages.jumpscounter_message + jumps, '22px', '#000', '#000', 0);
+        scoreText = this.createText(16, 16, messages.score_message.replace("{0}", score).replace("{1}", totalPossiblePointsInLevel), '22px', '#000', '#000', 0, "bold");
+        coinsText = this.createText(16, 40, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0, "bold");
+        failsText = this.createText(16, 64, messages.failscounter_message + fails, '22px', '#000', '#000', 0, "bold");
+        jumpsText = this.createText(16, 88, messages.jumpscounter_message + jumps, '22px', '#000', '#000', 0, "bold");
     }
 
 }
