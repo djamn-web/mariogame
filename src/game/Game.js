@@ -125,7 +125,7 @@ class BaseLevel extends Phaser.Scene {
         map = this.make.tilemap({ key: levels[currentLevel - 1].name }); //Creates Tilemap with name map
 
         // Background
-        skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'skyLayer').setOrigin(0, 0);
+        skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds').setOrigin(0, 0);
         middleLayer = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes').setOrigin(0, 0);
         foregroundLayer = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees').setOrigin(0, 0);
 
@@ -593,7 +593,7 @@ class Level3 extends BaseLevel {
         middleLayer.destroy();
         foregroundLayer.destroy();
 
-        skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'skyLayer-winter');
+        skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds-winter');
         skyLayer.setOrigin(0,0)
         skyLayer.setDepth(-3);
 
