@@ -33,7 +33,7 @@ export class Menu {
 
         const shadow = {offsetX: 1, offsetY: 1, color:"#b80c0cff", blur:1, stroke:false, fill:true}
 
-        this.createText(widthLine1, height / 1.35, "Christmas Special", '28px', 'darkred', '#000', 0, "bold", shadow);
+        this.createText(widthLine1, height / 1.35, messages.christmas_event, '28px', 'darkred', '#000', 0, "bold", shadow);
         this.createButton(widthLine1, height / 1.8, 'button', () => {
             config.startCurrentLevel = 3;
             this.scene.start("level3")

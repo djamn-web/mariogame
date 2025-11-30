@@ -18,7 +18,8 @@ var messages = {
     fullscreen_landscape_hit: "To ensure working game!",
     version: "Version:",
     nan: "not available",
-    finish_score: "Your level score: {0}/{1} points"
+    finish_score: "Your level score: {0}/{1} points",
+    christmas_event: "Christmas Special"
 };
 
 
