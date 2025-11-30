@@ -5,7 +5,7 @@
   <properties>
    <property name="bullet_setback_x" type="int" value="-1"/>
    <property name="bullet_setback_y" type="int" value="-1"/>
-   <property name="velocity_x" type="int" value="-200"/>
+   <property name="velocity_x" type="int" value="0"/>
    <property name="velocity_y" type="int" value="0"/>
   </properties>
  </tile>
