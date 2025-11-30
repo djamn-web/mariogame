@@ -1,10 +1,13 @@
 export const AssetConfig = {
     images: [
-        { key: 'clouds', path: 'game/assets/images/clouds.jpg' },
-        { key: 'darkgreen', path: 'game/assets/images/darkgreen.png' },
-        { key: 'green', path: 'game/assets/images/green.png' },
+        { key: 'clouds', path: 'game/assets/images/clouds.png' },
+        { key: 'darkgreen', path: 'game/assets/images/tree_background.png' },
+        { key: 'green', path: 'game/assets/images/foreground.png' },
+        { key: 'clouds-winter', path: 'game/assets/images/clouds_winter.png' },
+        { key: 'tree-background-winter', path: 'game/assets/images/tree_background_winter.png' },
+        { key: 'foreground-winter', path: 'game/assets/images/foreground_winter.png' },
         { key: 'bullet', path: 'game/assets/images/bullet.png' },
-        { key: 'bullet-red', path: 'game/assets/images/bullet-red.png' },
+        { key: 'bullet-red', path: 'game/assets/images/bullet_red.png' },
         { key: 'mariotiles', path: 'game/assets/images/mariotiles.png' },
         { key: 'fireball', path: 'game/assets/images/fireball-small.png' },
         { key: 'coins', path: 'game/assets/images/coin_new.png' },
