@@ -139,105 +139,6 @@
                 {
                  "gid":402,
                  "height":32,
-                 "id":15,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bullet_setback_x",
-                         "type":"int",
-                         "value":1000
-                        }, 
-                        {
-                         "name":"bullet_setback_y",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"velocity_x",
-                         "type":"int",
-                         "value":-200
-                        }, 
-                        {
-                         "name":"velocity_y",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":1708,
-                 "y":182.666666666667
-                }, 
-                {
-                 "gid":402,
-                 "height":32,
-                 "id":16,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bullet_setback_x",
-                         "type":"int",
-                         "value":730
-                        }, 
-                        {
-                         "name":"bullet_setback_y",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"velocity_x",
-                         "type":"int",
-                         "value":-300
-                        }, 
-                        {
-                         "name":"velocity_y",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":1346.66666666667,
-                 "y":236
-                }, 
-                {
-                 "gid":402,
-                 "height":32,
-                 "id":17,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bullet_setback_x",
-                         "type":"int",
-                         "value":580
-                        }, 
-                        {
-                         "name":"bullet_setback_y",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"velocity_x",
-                         "type":"int",
-                         "value":-300
-                        }, 
-                        {
-                         "name":"velocity_y",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":1322.66666666667,
-                 "y":377.333333333333
-                }, 
-                {
-                 "gid":402,
-                 "height":32,
                  "id":18,
                  "name":"bullet",
                  "properties":[
@@ -682,6 +583,18 @@
                  "width":32,
                  "x":1421,
                  "y":477
+                }, 
+                {
+                 "gid":401,
+                 "height":176,
+                 "id":42,
+                 "name":"flag",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":146.666666666667,
+                 "y":525.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -792,7 +705,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":42,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
