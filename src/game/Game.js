@@ -808,9 +808,9 @@ function handleFinish() {
     this.scene.stop();
     if (currentLevel <= levels.length) {
         alreadyPreloaded = false;
-        this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel });
+        this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
     } else {
-        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel });
+        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
     }
 }
 

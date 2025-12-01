@@ -19,6 +19,8 @@ var messages = {
     version: "Version:",
     nan: "not available",
     finish_score: "Your level score: {0}/{1} points",
+    finish_fail: "Your fails: {0} fail",
+    finish_fails: "Your fails: {0} fails",
     christmas_event: "Christmas Special"
 };
 

@@ -9,6 +9,7 @@ export class FinishedLevel extends Phaser.Scene {
 
         createText(this, width * 0.5, height / 3, messages.title_won, '40px', '#000', '#000', 0.8)
         createText(this, width * 0.5, height / 2.3, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.404, height / 2.1, getFinishFailsMessage(data), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.5, height / 1.8, messages.title_won_sub, '32px', '#000', '#000', 0.5)
 
         data.music.stop()
@@ -27,6 +28,7 @@ export class FinishedLastLevel extends Phaser.Scene {
         createText(this, width * 0.5, height / 3.5, messages.title_won_all, '40px', 'orange', 'red', 0.8)
         createText(this, width * 0.5, height / 2.5, messages.title_won_all_sub, '35px', '#000', '#000', 0.6)
         createText(this, width * 0.5, height / 2.1, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.42, height / 1.9, getFinishFailsMessage(data), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.5, height / 1.5, messages.reload, '32px', '#000', '#000', 0.6)
 
         data.music.stop()
@@ -132,4 +134,12 @@ function createText(object, x, y, text, fontSize, fillColor, stroke, strokeThick
 
 function getFinishScoreMessage(data) {
     return messages.finish_score.replace("{0}", data.score).replace("{1}", data.maxScore);
+}
+
+function getFinishFailsMessage(data) {
+    const failAmount = data.fails;
+
+    if(failAmount === 1) return messages.finish_fail.replace("{0}", data.fails);
+
+    return messages.finish_fails.replace("{0}", data.fails);
 }
