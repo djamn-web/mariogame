@@ -513,7 +513,7 @@
                         }],
                  "rotation":45,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":32,
                  "x":1687,
                  "y":396
@@ -583,18 +583,6 @@
                  "width":32,
                  "x":1421,
                  "y":477
-                }, 
-                {
-                 "gid":401,
-                 "height":176,
-                 "id":42,
-                 "name":"flag",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":146.666666666667,
-                 "y":525.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
