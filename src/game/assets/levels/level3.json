@@ -283,18 +283,6 @@
                 {
                  "gid":405,
                  "height":32,
-                 "id":64,
-                 "name":"breaking-ice",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":297.333333333333,
-                 "y":412
-                }, 
-                {
-                 "gid":405,
-                 "height":32,
                  "id":65,
                  "name":"breaking-ice",
                  "rotation":0,

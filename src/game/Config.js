@@ -18,8 +18,8 @@ class config {
 
     static version = "3.1.0";       // MajorUpdate.MinorChanges.Fixes
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
-    static startScene = "menu";               // Needs to be determined with startCurrentLevel together (when selecting level)
-    static startCurrentLevel = 1;
+    static startScene = "level3";               // Needs to be determined with startCurrentLevel together (when selecting level)
+    static startCurrentLevel = 3;
     static finishLevelScreenTime = 5500;        // Determines how long the finish screen should be shown (in ms)
     static leftRightButtonPosition = 100;
     static fullscreenHintDisplayDuration = 3000;
@@ -64,6 +64,18 @@ class config {
         spinningAngle: 360,
         spinningDurationMin: 3000,
         spinningDurationMax: 6000
+    }
+
+    static breakingIce = {
+        toleranceYDifference: 3,
+        frames: {
+            initialFrame: 0,
+            framesName: 'breaking-ice',
+            breakingAnimation: [0, 1, 2, 3],
+            frameRate: 1,
+            repeat: 0,
+            additionalWaitTimeMultiplier: 0 // 1000 for 1 sec ratio
+        }
     }
 
     static goomba = {
