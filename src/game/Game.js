@@ -659,7 +659,6 @@ function handleBreakingIce(breakingIce) {
     if (!breakingIce.active) return;
 
     const iceAnimsConfig = config.breakingIce.frames;
-
     const iceStartingX = breakingIce.x - 32 / 2;
     const iceStartingY = breakingIce.y - 32 / 2;
     const iceEndingX = iceStartingX + 32;
@@ -668,10 +667,7 @@ function handleBreakingIce(breakingIce) {
     const marioEndingX = marioStartingX + config.player.sizeX;
     const marioEndingY = mario.y + config.player.sizeY / 2;
 
-
     const isOnIceY = Math.abs(marioEndingY - iceStartingY) < config.breakingIce.toleranceYDifference;
-
-
     const isOverlappingX = marioEndingX > iceStartingX && marioStartingX < iceEndingX;
 
     if (isOnIceY && isOverlappingX) {
@@ -690,7 +686,6 @@ function handleBreakingIce(breakingIce) {
                 breakingIce.setFrame(iceAnimsConfig.breakingAnimation[iceAnimsConfig.breakingAnimation.length - 1]);
             });
         }
-
 
         const timeElapsed = Date.now() - breakingIce.startTime;
         const animationDuration = (iceAnimsConfig.breakingAnimation.length / iceAnimsConfig.frameRate) * 1000; // in milliseconds
