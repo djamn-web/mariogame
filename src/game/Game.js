@@ -35,7 +35,7 @@ let hotkeys, cursors;
 let isMovingLeft, isMovingRight, isJump, isFire;
 
 // Objects
-let bullets, fireballs, platforms, coins, goombas, goombaWalls;
+let bullets, fireballs, platforms, coins, goombas, goombaWalls, breakingIces;
 
 // Texts
 let scoreText, failsText, jumpsText, coinsText;
@@ -93,6 +93,12 @@ class Preload {
             key: config.goomba.frames.framesName,
             frames: this.anims.generateFrameNumbers('goomba', { frames: config.goomba.frames.walkingAnimation }),
             frameRate: config.goomba.frames.frameRate
+        });
+
+        this.anims.create({
+            key: config.breakingIce.frames.framesName,
+            frames: this.anims.generateFrameNumbers('breaking-ice', { frames: config.breakingIce.frames.breakingAnimation }),
+            frameRate: config.breakingIce.frames.frameRate
         });
 
         this.scene.start(config.startScene);
@@ -272,6 +278,11 @@ class BaseLevel extends Phaser.Scene {
                 return false;
             }
             return true;
+        })
+
+        breakingIces.forEach(breakingIce => {
+            breakingIce.anims.play(config.breakingIce.frames.framesName, true)
+
         })
 
         music.setVolume(sliderValue);
@@ -474,6 +485,25 @@ class BaseLevel extends Phaser.Scene {
             totalPossibleCoinsInLevel++;
         })
 
+        breakingIces = map.createFromObjects('gameobjects', {
+            name: 'breaking-ice',
+            key: 'breaking-ice'
+        })
+
+        // TODO
+        breakingIces.forEach(breakingIce => {
+            this.physics.world.enable(breakingIce);
+            breakingIce.active = true;
+            breakingIce.body.allowGravity = false;
+            breakingIce.body.immovable = true;
+            breakingIce.setFrame(0) // TODO
+            breakingIce.anims.play(config.breakingIce.frames.framesName, true)
+
+        })
+
+        console.log(breakingIces);
+
+
         goombas = map.createFromObjects('gameobjects', {
             name: 'goomba',
             key: 'goomba',
@@ -515,6 +545,7 @@ class BaseLevel extends Phaser.Scene {
         marioPlatformsCollider = this.physics.add.collider(mario, platforms, mptouchedown);
         marioBulletsCollider = this.physics.add.collider(mario, bullets, playerDie, null, this);
         this.physics.add.collider(coins, floorLayer);
+        this.physics.add.collider(mario, breakingIces);
         this.physics.add.collider(coins, enemyLayer);
     }
 
@@ -594,15 +625,15 @@ class Level3 extends BaseLevel {
         foregroundLayer.destroy();
 
         skyLayer = this.add.tileSprite(0, 0, map.widthInPixels, map.heightInPixels, 'clouds-winter');
-        skyLayer.setOrigin(0,0)
+        skyLayer.setOrigin(0, 0)
         skyLayer.setDepth(-3);
 
         middleLayer = this.add.tileSprite(0, map.heightInPixels - 540, map.widthInPixels, 640, 'bushes-winter');
-        middleLayer.setOrigin(0,0)
+        middleLayer.setOrigin(0, 0)
         middleLayer.setDepth(-2);
 
         foregroundLayer = this.add.tileSprite(0, map.heightInPixels - 480, map.widthInPixels, 480, 'trees-winter');
-        foregroundLayer.setOrigin(0,0)
+        foregroundLayer.setOrigin(0, 0)
         foregroundLayer.setDepth(-1);
     }
 

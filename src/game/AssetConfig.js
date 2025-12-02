@@ -46,6 +46,7 @@ export const AssetConfig = {
         { key: 'mario', path: 'game/assets/spritesheets/mariospritesheet.png', frameWidth: 50, frameHeight: 50 },
         { key: 'goomba', path: 'game/assets/spritesheets/goombaspritesheet.png', frameWidth: 50, frameHeight: 50 },
         { key: 'platforms', path: 'game/assets/spritesheets/movingplatforms.png', frameWidth: 128, frameHeight: 32 },
+        { key: 'breaking-ice', path: 'game/assets/spritesheets/breaking-ice.png', frameWidth: 32, frameHeight: 32 },
     ],
     tilemaps: [
         { key: 'level1', path: 'game/assets/levels/level1.json' },

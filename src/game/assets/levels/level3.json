@@ -279,6 +279,30 @@
                  "width":32,
                  "x":1661.33333333333,
                  "y":261.333333333333
+                }, 
+                {
+                 "gid":405,
+                 "height":32,
+                 "id":64,
+                 "name":"breaking-ice",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":297.333333333333,
+                 "y":412
+                }, 
+                {
+                 "gid":405,
+                 "height":32,
+                 "id":65,
+                 "name":"breaking-ice",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":267.333333333333,
+                 "y":358.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -369,7 +393,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":64,
+ "nextobjectid":66,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -403,6 +427,10 @@
         {
          "firstgid":404,
          "source":"..\/tiled\/entities.tsx"
+        }, 
+        {
+         "firstgid":405,
+         "source":"..\/tiled\/iceblock.tsx"
         }],
  "tilewidth":16,
  "type":"map",
