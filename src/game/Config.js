@@ -72,7 +72,7 @@ class config {
             initialFrame: 0,
             framesName: 'breaking-ice',
             breakingAnimation: [0, 1, 2, 3],
-            frameRate: 1.5, // one frame per second -> the more frames the faster the ice breaking (e.g. 2fps = changing animation every 0.5s)
+            frameRate: 5, // one frame per second -> the more frames the faster the ice breaking (e.g. 2fps = changing animation every 0.5s)
             repeat: 0,
             additionalWaitTimeMultiplier: 0 // 1000 for 1 sec ratio
         }
