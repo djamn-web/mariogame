@@ -283,57 +283,7 @@ class BaseLevel extends Phaser.Scene {
         })
 
         breakingIces.forEach(breakingIce => {
-            if (!breakingIce.active) return;
-
-            const iceAnimsConfig = config.breakingIce.frames;
-
-            const iceStartingX = breakingIce.x - 32 / 2;
-            const iceStartingY = breakingIce.y - 32 / 2;
-            const iceEndingX = iceStartingX + 32;
-
-            const marioStartingX = mario.x - config.player.sizeX / 2;
-            const marioEndingX = marioStartingX + config.player.sizeX;
-            const marioEndingY = mario.y + config.player.sizeY / 2;
-
-
-            const isOnIceY = Math.abs(marioEndingY - iceStartingY) < config.breakingIce.toleranceYDifference;
-
-
-            const isOverlappingX = marioEndingX > iceStartingX && marioStartingX < iceEndingX;
-
-            if (isOnIceY && isOverlappingX) {
-                if (!breakingIce.timeoutActive) {
-                    breakingIce.timeoutActive = true;
-                    breakingIce.startTime = Date.now();
-                }
-
-                if (!breakingIce.anims.isPlaying && !breakingIce.animationComplete) {
-                    breakingIce.anims.play(config.breakingIce.frames.framesName);
-
-
-                    // if using additional wait time, waits on last frame
-                    breakingIce.once('animationcomplete', () => {
-                        breakingIce.animationComplete = true;
-                        breakingIce.setFrame(iceAnimsConfig.breakingAnimation[iceAnimsConfig.breakingAnimation.length - 1]);
-                    });
-                }
-
-
-                const timeElapsed = Date.now() - breakingIce.startTime;
-                const animationDuration = (iceAnimsConfig.breakingAnimation.length / iceAnimsConfig.frameRate) * 1000; // in milliseconds
-                const additionalWaitTime = (1 / iceAnimsConfig.frameRate) * iceAnimsConfig.additionalWaitTimeMultiplier;
-                const totalTimeNeeded = animationDuration + additionalWaitTime;
-
-                if (timeElapsed >= totalTimeNeeded) {
-                    breakingIce.destroy();
-                }
-            } else {
-                breakingIce.anims.stop();
-                breakingIce.setFrame(config.breakingIce.frames.initialFrame);
-                breakingIce.timeoutActive = false;
-                breakingIce.startTime = null;
-                breakingIce.animationComplete = false;
-            }
+            handleBreakingIce(breakingIce);
         });
 
         music.setVolume(sliderValue);
@@ -705,6 +655,59 @@ class Level4 extends BaseLevel {
 }
 
 
+function handleBreakingIce(breakingIce) {
+    if (!breakingIce.active) return;
+
+    const iceAnimsConfig = config.breakingIce.frames;
+
+    const iceStartingX = breakingIce.x - 32 / 2;
+    const iceStartingY = breakingIce.y - 32 / 2;
+    const iceEndingX = iceStartingX + 32;
+
+    const marioStartingX = mario.x - config.player.sizeX / 2;
+    const marioEndingX = marioStartingX + config.player.sizeX;
+    const marioEndingY = mario.y + config.player.sizeY / 2;
+
+
+    const isOnIceY = Math.abs(marioEndingY - iceStartingY) < config.breakingIce.toleranceYDifference;
+
+
+    const isOverlappingX = marioEndingX > iceStartingX && marioStartingX < iceEndingX;
+
+    if (isOnIceY && isOverlappingX) {
+        if (!breakingIce.timeoutActive) {
+            breakingIce.timeoutActive = true;
+            breakingIce.startTime = Date.now();
+        }
+
+        if (!breakingIce.anims.isPlaying && !breakingIce.animationComplete) {
+            breakingIce.anims.play(config.breakingIce.frames.framesName);
+
+
+            // if using additional wait time, waits on last frame
+            breakingIce.once('animationcomplete', () => {
+                breakingIce.animationComplete = true;
+                breakingIce.setFrame(iceAnimsConfig.breakingAnimation[iceAnimsConfig.breakingAnimation.length - 1]);
+            });
+        }
+
+
+        const timeElapsed = Date.now() - breakingIce.startTime;
+        const animationDuration = (iceAnimsConfig.breakingAnimation.length / iceAnimsConfig.frameRate) * 1000; // in milliseconds
+        const additionalWaitTime = (1 / iceAnimsConfig.frameRate) * iceAnimsConfig.additionalWaitTimeMultiplier;
+        const totalTimeNeeded = animationDuration + additionalWaitTime;
+
+        if (timeElapsed >= totalTimeNeeded) {
+            breakingIce.destroy();
+        }
+    } else {
+        breakingIce.anims.stop();
+        breakingIce.setFrame(config.breakingIce.frames.initialFrame);
+        breakingIce.timeoutActive = false;
+        breakingIce.startTime = null;
+        breakingIce.animationComplete = false;
+    }
+}
 
 //mario dies - Settings
 function playerDie(showDieAnimation = true) {
