@@ -541,8 +541,9 @@ class BaseLevel extends Phaser.Scene {
         this.physics.add.collider(goombas, floorLayer);
         marioPlatformsCollider = this.physics.add.collider(mario, platforms, mptouchedown);
         marioBulletsCollider = this.physics.add.collider(mario, bullets, playerDie, null, this);
+        mario.iceCollider = this.physics.add.collider(mario, breakingIces);
         this.physics.add.collider(coins, floorLayer);
-        this.physics.add.collider(mario, breakingIces);
+        this.physics.add.collider(coins, breakingIces);
         this.physics.add.collider(coins, enemyLayer);
     }
 
@@ -707,6 +708,7 @@ function handleBreakingIce(breakingIce) {
 //mario dies - Settings
 function playerDie(showDieAnimation = true) {
     if (isDying) return;
+    // this.physics.removeCollider(mario, breakingIces);
 
     music.stop();
     death.play();
@@ -716,6 +718,7 @@ function playerDie(showDieAnimation = true) {
         mario.setFrame(6);
         isDying = true;
 
+        level.physics.world.removeCollider(mario.iceCollider);
         level.physics.world.removeCollider(marioFloorLayerCollider);
         level.physics.world.removeCollider(marioEnemyLayerCollider);
         level.physics.world.removeCollider(marioPlatformsCollider);
