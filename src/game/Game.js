@@ -28,7 +28,6 @@ let skyLayer, middleLayer, foregroundLayer;
 
 // Layers
 let enemyLayer, floorLayer, backgroundLayer;
-let marioFloorLayerCollider, marioEnemyLayerCollider, marioPlatformsCollider, marioBulletsCollider;
 
 // Keys
 let hotkeys, cursors;
@@ -161,6 +160,7 @@ class BaseLevel extends Phaser.Scene {
         mario.setScale(config.player.scaleX, config.player.scaleY)
         mario.setFlipX(config.player.initialFlip);
         mario.body.setMaxVelocity(config.player.maxVelocityX, config.player.maxVelocityY);  //the player will fall through plattforms if gravity is accelerating it to more than 1000px/s
+        mario.colliders = {};
         isDying = false;
 
         // Camera
@@ -180,8 +180,8 @@ class BaseLevel extends Phaser.Scene {
         });
 
         // Collision handling
-        marioFloorLayerCollider = this.physics.add.collider(mario, floorLayer);
-        marioEnemyLayerCollider = this.physics.add.collider(mario, enemyLayer, playerDie, null, this); // Call die function when mario collides with enemyLayerItem
+        mario.colliders.floorLayerCollider = this.physics.add.collider(mario, floorLayer);
+        mario.colliders.enemyLayerCollider = this.physics.add.collider(mario, enemyLayer, playerDie, null, this); // Call die function when mario collides with enemyLayerItem
 
         // // overlap checks need to be made after colliders
         // // object1, object2, collideCallback, processCallback, callbackContext)
@@ -539,9 +539,9 @@ class BaseLevel extends Phaser.Scene {
         this.physics.add.overlap(goombas, goombaWalls, handleGoombaWallCollision, null, this);
 
         this.physics.add.collider(goombas, floorLayer);
-        marioPlatformsCollider = this.physics.add.collider(mario, platforms, mptouchedown);
-        marioBulletsCollider = this.physics.add.collider(mario, bullets, playerDie, null, this);
-        mario.iceCollider = this.physics.add.collider(mario, breakingIces);
+        mario.colliders.platformsCollider = this.physics.add.collider(mario, platforms, mptouchedown);
+        mario.colliders.bulletsCollider = this.physics.add.collider(mario, bullets, playerDie, null, this);
+        mario.colliders.iceCollider = this.physics.add.collider(mario, breakingIces);
         this.physics.add.collider(coins, floorLayer);
         this.physics.add.collider(coins, breakingIces);
         this.physics.add.collider(coins, enemyLayer);
@@ -718,11 +718,11 @@ function playerDie(showDieAnimation = true) {
         mario.setFrame(6);
         isDying = true;
 
-        level.physics.world.removeCollider(mario.iceCollider);
-        level.physics.world.removeCollider(marioFloorLayerCollider);
-        level.physics.world.removeCollider(marioEnemyLayerCollider);
-        level.physics.world.removeCollider(marioPlatformsCollider);
-        level.physics.world.removeCollider(marioBulletsCollider);
+        level.physics.world.removeCollider(mario.colliders.iceCollider);
+        level.physics.world.removeCollider(mario.colliders.floorLayerCollider);
+        level.physics.world.removeCollider(mario.colliders.enemyLayerCollider);
+        level.physics.world.removeCollider(mario.colliders.platformsCollider);
+        level.physics.world.removeCollider(mario.colliders.bulletsCollider);
 
         level.time.delayedCall(1650, () => {
             incrementFails();
