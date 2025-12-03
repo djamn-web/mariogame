@@ -9,8 +9,8 @@ export class FinishedLevel extends Phaser.Scene {
 
         createText(this, width * 0.5, height / 3, messages.title_won, '40px', '#000', '#000', 0.8)
         createText(this, width * 0.5, height / 2.3, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.404, height / 2.1, getFinishFailsMessage(data), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.5, height / 1.8, messages.title_won_sub, '32px', '#000', '#000', 0.5)
+        createText(this, width * 0.42, height / 2.0, getFinishFailsMessage(data), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.5, height / 1.6, messages.title_won_sub, '32px', '#000', '#000', 0.5)
 
         data.music.stop()
         data.stageclear.play();
