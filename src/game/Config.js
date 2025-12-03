@@ -16,7 +16,7 @@ class config {
         },
     };
 
-    static version = "3.1.0";       // MajorUpdate.MinorChanges.Fixes
+    static version = "4.0.0";       // MajorUpdate.MinorChanges.Fixes
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
     static startScene = "level3";               // Needs to be determined with startCurrentLevel together (when selecting level)
     static startCurrentLevel = 3;
