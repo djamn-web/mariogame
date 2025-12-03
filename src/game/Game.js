@@ -9,6 +9,7 @@ let lastfire = 0;
 let counter = 0;
 let isMusicMuted = false;
 let fails = 0;
+let totalFails = 0;
 let jumps = 0;
 let score = 0;
 let coinsAmount = 0;
@@ -741,7 +742,7 @@ function restartGame() {
 }
 
 function stopGame() {
-    resetVariables(true, true);
+    resetVariables(true, true, true);
     music.stop();
     alreadyPreloaded = false;
     level.scene.stop();
@@ -801,13 +802,15 @@ function shoot() {
 }
 
 // Resets variables
-function resetVariables(resetCounter, resetLevels) {
+// TODO refactor
+function resetVariables(resetCounter, resetLevels, resetTotalFails = false) {
     if (resetCounter) {
         fails = 0;
         jumps = 0;
     }
 
     if (resetLevels) currentLevel = config.startCurrentLevel;
+    if (resetTotalFails) totalFails = 0;
 
     totalPossiblePointsInLevel = 0;
     totalPossibleCoinsInLevel = 0;
@@ -884,13 +887,14 @@ function isOnFloor() {
 function handleFinish() {
     currentLevel++;
     config.startCurrentLevel = currentLevel;
+    totalFails += fails;
 
     this.scene.stop();
     if (currentLevel <= levels.length) {
         alreadyPreloaded = false;
         this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
     } else {
-        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
+        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, totalFails: totalFails });
     }
 }
 
@@ -902,7 +906,7 @@ function nextLevel() {
 
 // action to move back to menu after last level
 function backToMenu() {
-    resetVariables(true, true);
+    resetVariables(true, true, true);
     this.scene.stop();
     this.scene.start("menu");
 }

@@ -9,7 +9,7 @@ export class FinishedLevel extends Phaser.Scene {
 
         createText(this, width * 0.5, height / 3, messages.title_won, '40px', '#000', '#000', 0.8)
         createText(this, width * 0.5, height / 2.3, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.42, height / 2.0, getFinishFailsMessage(data), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.42, height / 2.0, getFinishFailsMessage(data.fails), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.5, height / 1.6, messages.title_won_sub, '32px', '#000', '#000', 0.5)
 
         data.music.stop()
@@ -28,7 +28,8 @@ export class FinishedLastLevel extends Phaser.Scene {
         createText(this, width * 0.5, height / 3.5, messages.title_won_all, '40px', 'orange', 'red', 0.8)
         createText(this, width * 0.5, height / 2.5, messages.title_won_all_sub, '35px', '#000', '#000', 0.6)
         createText(this, width * 0.5, height / 2.1, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.42, height / 1.9, getFinishFailsMessage(data), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.42, height / 1.9, getFinishFailsMessage(data.fails), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.465, height / 1.72, getFinishFailsMessage(data.totalFails, true), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.5, height / 1.5, messages.reload, '32px', '#000', '#000', 0.6)
 
         data.music.stop()
@@ -136,10 +137,10 @@ function getFinishScoreMessage(data) {
     return messages.finish_score.replace("{0}", data.score).replace("{1}", data.maxScore);
 }
 
-function getFinishFailsMessage(data) {
-    const failAmount = data.fails;
-
-    if(failAmount === 1) return messages.finish_fail.replace("{0}", data.fails);
-
-    return messages.finish_fails.replace("{0}", data.fails);
+function getFinishFailsMessage(fails, isTotalFails = false) {
+    const messageKey = isTotalFails 
+        ? (fails === 1 ? 'finish_total_fail' : 'finish_total_fails')
+        : (fails === 1 ? 'finish_fail' : 'finish_fails');
+    
+    return messages[messageKey].replace("{0}", fails);
 }
