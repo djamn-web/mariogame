@@ -787,6 +787,7 @@ function shoot() {
 
         level.physics.add.collider(fireball, platforms, mptouchedown);
         level.physics.add.collider(fireball, floorLayer);
+        level.physics.add.collider(fireball, breakingIces);
         level.physics.add.collider(fireball, enemyLayer);
         level.physics.add.collider(fireball, coins);
         level.physics.add.overlap(fireball, bullets, destroyEnemy, null, this);

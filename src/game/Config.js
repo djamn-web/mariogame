@@ -23,7 +23,7 @@ class config {
     static finishLevelScreenTime = 5500;        // Determines how long the finish screen should be shown (in ms)
     static leftRightButtonPosition = 100;
     static fullscreenHintDisplayDuration = 3000;
-    static snowyLevels = ["level1"];            // Show snow in specific levels
+    static snowyLevels = ["level3"];            // Show snow in specific levels
     static showSnow = true;                     // General value to show snow in all levels or only specific ones
 
     static player = {
