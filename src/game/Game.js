@@ -159,6 +159,8 @@ class BaseLevel extends Phaser.Scene {
         mario.body.setCollideWorldBounds(config.player.collideWithWorldBounds);
         mario.body.setSize(config.player.sizeX, config.player.sizeY)
         mario.setScale(config.player.scaleX, config.player.scaleY)
+        mario.body.height = mario.displayHeight; // body.height is initially height in objectlayer not scaled height
+        mario.body.width = mario.body.displayWidth;
         mario.setFlipX(config.player.initialFlip);
         mario.body.setMaxVelocity(config.player.maxVelocityX, config.player.maxVelocityY);  //the player will fall through plattforms if gravity is accelerating it to more than 1000px/s
         mario.colliders = {};
@@ -665,11 +667,11 @@ function handleBreakingIce(breakingIce) {
     const iceStartingY = breakingIce.y - 32 / 2;
     const iceEndingX = iceStartingX + 32;
 
-    const marioStartingX = mario.x - config.player.sizeX / 2;
-    const marioEndingX = marioStartingX + config.player.sizeX;
-    const marioEndingY = mario.y + config.player.sizeY / 2;
+    const marioStartingX = mario.x - mario.body.width / 2;
+    const marioEndingX = marioStartingX + mario.body.width;
+    const mariobottomY = mario.y + mario.body.height / 2;
 
-    const isOnIceY = Math.abs(marioEndingY - iceStartingY) < config.breakingIce.toleranceYDifference;
+    const isOnIceY = Math.abs(mariobottomY - iceStartingY) < config.breakingIce.toleranceYDifference;
     const isOverlappingX = marioEndingX > iceStartingX && marioStartingX < iceEndingX;
 
     if (isOnIceY && isOverlappingX) {
