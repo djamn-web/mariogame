@@ -338,15 +338,15 @@ class BaseLevel extends Phaser.Scene {
         let buttonX = canvasWidth - buttonWidth / 2 - gap; // Right-aligned with padding
         let buttonY = buttonHeight / 2 + gap; // Starts with a top padding
 
-        if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && Config.elementSettings.showFullscreenButtonOnDesktop)) fullscreenButton = this.createButton(buttonX - buttonWidth - gap, buttonY, 'fullscreenbutton', () => toggleFullscreenMode(), null, Config.hovercolor, false, true);
+        if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && Config.elementSettings.showFullscreenButtonOnDesktop)) fullscreenButton = this.createButton(buttonX - buttonWidth - gap, buttonY, 'fullscreenbutton', Config.hovercolor, false, true, () => toggleFullscreenMode());
 
-        const settingsButton = this.createButton(buttonX, buttonY, 'settingsbutton', () => toggleSettingsMenu(false), null, '0xA1A1A1', false, true);
+        const settingsButton = this.createButton(buttonX, buttonY, 'settingsbutton', '0xA1A1A1', false, true, () => toggleSettingsMenu(false));
         buttonY += settingsButton.height + gap;
 
-        reloadGameButton = this.createButton(buttonX, buttonY, 'reloadbutton', () => restartGame(), null, Config.hovercolor, false, true);
+        reloadGameButton = this.createButton(buttonX, buttonY, 'reloadbutton', Config.hovercolor, false, true, () => restartGame());
         buttonY += reloadGameButton.height + gap;
 
-        homeButton = this.createButton(buttonX, buttonY, 'menubutton', () => stopGame(), null, Config.hovercolor, false, true);
+        homeButton = this.createButton(buttonX, buttonY, 'menubutton', Config.hovercolor, false, true, () => stopGame());
         buttonY += homeButton.height + gap + 70;
 
         // https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-overview/
@@ -399,15 +399,15 @@ class BaseLevel extends Phaser.Scene {
     }
 
     createMobileButtons() {
-        const jumpbutton = this.createButton(Config.canvas.width - 70, Config.canvas.height - 70, 'jumpbutton', () => { jump(); isJump = true }, () => isJump = false, '#000', true, false)
-        this.createButton(jumpbutton.x - jumpbutton.width - 35, Config.canvas.height - 70, 'firebutton', () => { shoot(); isFire = true }, () => isFire = false, '#000', true, false)
+        const jumpbutton = this.createButton(Config.canvas.width - 70, Config.canvas.height - 70, 'jumpbutton', '#000', true, false, () => { jump(); isJump = true }, () => isJump = false,)
+        this.createButton(jumpbutton.x - jumpbutton.width - 35, Config.canvas.height - 70, 'firebutton', '#000', true, false, () => { shoot(); isFire = true }, () => isFire = false)
 
         // Left + Right Button
-        const leftButton = this.createButton(Config.leftRightButtonPosition, Config.canvas.height - 70, 'leftbutton', () => isMovingLeft = true, () => isMovingLeft = false, '#000', true, false);
-        this.createButton(Config.leftRightButtonPosition + leftButton.width, Config.canvas.height - 70, 'rightbutton', () => isMovingRight = true, () => isMovingRight = false, '#000', true, false);
+        const leftButton = this.createButton(Config.leftRightButtonPosition, Config.canvas.height - 70, 'leftbutton', '#000', true, false, () => isMovingLeft = true, () => isMovingLeft = false,);
+        this.createButton(Config.leftRightButtonPosition + leftButton.width, Config.canvas.height - 70, 'rightbutton', '#000', true, false, () => isMovingRight = true, () => isMovingRight = false);
     }
 
-    createButton(x, y, texture, onClick, onClickFinished = null, tintColor = null, showTintForPointerClick, showTintForPointerOver) {
+    createButton(x, y, texture, tintColor, showTintForPointerClick, showTintForPointerOver,  onClick, onClickFinished = null,) {
         const button = this.add.sprite(x, y, texture).setInteractive();
         button.setScrollFactor(0);
         button.on('pointerdown', onClick);
