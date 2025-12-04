@@ -1,4 +1,4 @@
-class config {
+class Config {
     static canvas = {
         type: Phaser.AUTO,  // Which renderer to use
         width: 1000,         // Canvas width in pixels
@@ -11,7 +11,7 @@ class config {
             default: 'arcade',       // Which physics engine to use
             arcade: {
                 gravity: { y: 1200 },
-                debug: false              // paint debug information (hitboxes) ee
+                debug: true              // paint debug information (hitboxes) ee
             }
         },
     };
@@ -136,4 +136,4 @@ class config {
     }
 }
 
-export { config };
+export { Config };

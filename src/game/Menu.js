@@ -1,14 +1,14 @@
-import { config } from './Config.js';
+import { Config } from './Config.js';
 import { messages } from './Messages.js';
 
 export class Menu {
     create() {
-        const { width, height } = config.canvas;
+        const { width, height } = Config.canvas;
         const generalLevelWidth = width * 0.2;
         let widthLine1 = generalLevelWidth;
-        const version = `${messages.version} ${config.version}`
+        const version = `${messages.version} ${Config.version}`
 
-        // or this.sys.game.config.height
+        // or this.sys.game.Config.height
         this.add.tileSprite(0, 0, width * 2, height * 2, 'clouds').setOrigin(0, 0);
 
         this.createText(width * 0.5, height / 5.0, messages.menu_header, '32px', '#000', '#000', 0.4);
@@ -16,14 +16,14 @@ export class Menu {
 
         this.createText(widthLine1, height / 1.5, messages.menu_level1, '28px', '#000', '#000', 0.5, "bold");
         this.createButton(widthLine1, height / 1.8, 'button', () => {
-            config.startCurrentLevel = 1;
+            Config.startCurrentLevel = 1;
             this.scene.start("level1")
         });
         widthLine1 += generalLevelWidth;
 
         this.createText(widthLine1, height / 1.5, messages.menu_level2, '28px', '#000', '#000', 0.5, "bold");
         this.createButton(widthLine1, height / 1.8, 'button', () => {
-            config.startCurrentLevel = 2;
+            Config.startCurrentLevel = 2;
             this.scene.start("level2")
         });
         widthLine1 += generalLevelWidth;
@@ -35,14 +35,14 @@ export class Menu {
 
         this.createText(widthLine1, height / 1.35, messages.christmas_event, '28px', 'darkred', '#000', 0, "bold", shadow);
         this.createButton(widthLine1, height / 1.8, 'button', () => {
-            config.startCurrentLevel = 3;
+            Config.startCurrentLevel = 3;
             this.scene.start("level3")
         });
         widthLine1 += generalLevelWidth;
 
         this.createText(widthLine1, height / 1.5, messages.menu_level4, '28px', '#000', '#000', 0.5, "bold");
         this.createButton(widthLine1, height / 1.8, 'button', () => {
-            config.startCurrentLevel = 4;
+            Config.startCurrentLevel = 4;
             this.scene.start("level4")
         });
 
@@ -82,7 +82,7 @@ export class Menu {
         const button = this.add.sprite(x, y, texture).setInteractive();
 
         button.on('pointerdown', onClickCallback);
-        button.on('pointerover', () => button.setTint(config.hovercolor));
+        button.on('pointerover', () => button.setTint(Config.hovercolor));
         button.on('pointerout', () => button.clearTint());
     }
 }

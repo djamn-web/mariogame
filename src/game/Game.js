@@ -1,4 +1,4 @@
-import { config } from './Config.js';
+import { Config } from './Config.js';
 import { messages } from './Messages.js';
 import { AssetConfig } from './AssetConfig.js';
 import { Menu } from './Menu.js';
@@ -15,11 +15,11 @@ let score = 0;
 let coinsAmount = 0;
 let totalPossibleCoinsInLevel = 0;
 let totalPossiblePointsInLevel = 0;
-let sliderValue = config.elementSettings.initialSliderValue;
+let sliderValue = Config.elementSettings.initialSliderValue;
 let alreadyPreloaded = false;
-let isSettingsMenuActive = config.elementSettings.isSettingsMenuInitiallyActive;
+let isSettingsMenuActive = Config.elementSettings.isSettingsMenuInitiallyActive;
 let isDying = false;
-let maxFireballs = config.fire.maxFireballs;
+let maxFireballs = Config.fire.maxFireballs;
 
 // General
 let mario, camera, map, level, currentLevel, currentLevelName;
@@ -84,26 +84,26 @@ class Preload {
         coinsound.setVolume(sliderValue);
 
         this.anims.create({
-            key: config.player.frames.framesName,
-            frames: this.anims.generateFrameNumbers('mario', { frames: config.player.frames.walkingAnimation }),
-            frameRate: config.player.frames.frameRate
+            key: Config.player.frames.framesName,
+            frames: this.anims.generateFrameNumbers('mario', { frames: Config.player.frames.walkingAnimation }),
+            frameRate: Config.player.frames.frameRate
         });
 
         this.anims.create({
-            key: config.goomba.frames.framesName,
-            frames: this.anims.generateFrameNumbers('goomba', { frames: config.goomba.frames.walkingAnimation }),
-            frameRate: config.goomba.frames.frameRate
+            key: Config.goomba.frames.framesName,
+            frames: this.anims.generateFrameNumbers('goomba', { frames: Config.goomba.frames.walkingAnimation }),
+            frameRate: Config.goomba.frames.frameRate
         });
 
         this.anims.create({
-            key: config.breakingIce.frames.framesName,
-            frames: this.anims.generateFrameNumbers('breaking-ice', { frames: config.breakingIce.frames.breakingAnimation }),
-            frameRate: config.breakingIce.frames.frameRate,
-            repeat: config.breakingIce.frames.repeat,
+            key: Config.breakingIce.frames.framesName,
+            frames: this.anims.generateFrameNumbers('breaking-ice', { frames: Config.breakingIce.frames.breakingAnimation }),
+            frameRate: Config.breakingIce.frames.frameRate,
+            repeat: Config.breakingIce.frames.repeat,
             hideOnComplete: false
         });
 
-        this.scene.start(config.startScene);
+        this.scene.start(Config.startScene);
     }
 }
 
@@ -111,7 +111,7 @@ class BaseLevel extends Phaser.Scene {
     // TODO extract url
     preload() {
         const graphics = this.add.graphics();
-        graphics.fillStyle(config.snowflake.colorHex, 1);
+        graphics.fillStyle(Config.snowflake.colorHex, 1);
         graphics.fillCircle(8, 8, 8);
         graphics.generateTexture('snowflake', 16, 16);
         graphics.destroy();
@@ -128,7 +128,7 @@ class BaseLevel extends Phaser.Scene {
 
     create() {
         if (!music.isPlaying) { music.play(); }
-        currentLevel = config.startCurrentLevel;
+        currentLevel = Config.startCurrentLevel;
         currentLevelName = levels[currentLevel - 1].name;
         map = this.make.tilemap({ key: levels[currentLevel - 1].name }); //Creates Tilemap with name map
 
@@ -156,13 +156,13 @@ class BaseLevel extends Phaser.Scene {
 
         this.physics.world.enable(mario);
         mario.setDepth(1)
-        mario.body.setCollideWorldBounds(config.player.collideWithWorldBounds);
-        mario.body.setSize(config.player.sizeX, config.player.sizeY)
-        mario.setScale(config.player.scaleX, config.player.scaleY)
+        mario.body.setCollideWorldBounds(Config.player.collideWithWorldBounds);
+        mario.body.setSize(Config.player.sizeX, Config.player.sizeY)
+        mario.setScale(Config.player.scaleX, Config.player.scaleY)
         mario.body.height = mario.displayHeight; // body.height is initially height in objectlayer not scaled height
         mario.body.width = mario.body.displayWidth;
-        mario.setFlipX(config.player.initialFlip);
-        mario.body.setMaxVelocity(config.player.maxVelocityX, config.player.maxVelocityY);  //the player will fall through plattforms if gravity is accelerating it to more than 1000px/s
+        mario.setFlipX(Config.player.initialFlip);
+        mario.body.setMaxVelocity(Config.player.maxVelocityX, Config.player.maxVelocityY);  //the player will fall through plattforms if gravity is accelerating it to more than 1000px/s
         mario.colliders = {};
         isDying = false;
 
@@ -191,14 +191,14 @@ class BaseLevel extends Phaser.Scene {
         this.physics.add.overlap(mario, enemyLayer, null, null, this);
 
         this.createMainButtons();
-        if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && config.elementSettings.showMobileButtonsOnDesktop)) this.createMobileButtons();
+        if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && Config.elementSettings.showMobileButtonsOnDesktop)) this.createMobileButtons();
         this.initializeObjectLayer();
         this.createTexts();
 
         // Snowflakes handling   
-        if (config.snowyLevels.includes(currentLevelName) || config.showSnow) {
+        if (Config.snowyLevels.includes(currentLevelName) || Config.showSnow) {
             this.time.addEvent({
-                delay: config.snowflake.createDelayMs,
+                delay: Config.snowflake.createDelayMs,
                 callback: this.createSnowflake,
                 callbackScope: this,
                 loop: true
@@ -208,16 +208,16 @@ class BaseLevel extends Phaser.Scene {
 
     update() {
         if (!isDying && (cursors.left.isDown || hotkeys.left.isDown || isMovingLeft)) { // Left movement
-            mario.anims.play(config.player.frames.framesName, true);
-            mario.setFlipX(!config.player.initialFlip);
-            mario.body.setVelocityX(config.player.moveLeftVelocity);
+            mario.anims.play(Config.player.frames.framesName, true);
+            mario.setFlipX(!Config.player.initialFlip);
+            mario.body.setVelocityX(Config.player.moveLeftVelocity);
         } else if (!isDying && (cursors.right.isDown || hotkeys.right.isDown || isMovingRight)) { // Right movement
-            mario.anims.play(config.player.frames.framesName, true);
-            mario.body.setVelocityX(config.player.moveRightVelocity);
-            mario.setFlipX(config.player.initialFlip);
+            mario.anims.play(Config.player.frames.framesName, true);
+            mario.body.setVelocityX(Config.player.moveRightVelocity);
+            mario.setFlipX(Config.player.initialFlip);
         } else { // If player stands still -> No movement, frame 3
             mario.body.setVelocityX(0);
-            if (!isDying) mario.setFrame(config.player.frames.standingStillFrame);
+            if (!isDying) mario.setFrame(Config.player.frames.standingStillFrame);
         }
 
         if (!isDying && (Phaser.Input.Keyboard.JustDown(hotkeys.jump) || Phaser.Input.Keyboard.JustDown(hotkeys.jump2) || Phaser.Input.Keyboard.JustDown(cursors.up))) {
@@ -225,13 +225,13 @@ class BaseLevel extends Phaser.Scene {
         }
 
         // If player is not on floor and jumps -> frame 5
-        if (!isDying && (!onFloor() && hotkeys.jump.isDown || !onFloor() && hotkeys.jump2.isDown || !onFloor() && cursors.up.isDown || !onFloor() && isJump)) { mario.setFrame(config.player.frames.jumpFrame); }
+        if (!isDying && (!onFloor() && hotkeys.jump.isDown || !onFloor() && hotkeys.jump2.isDown || !onFloor() && cursors.up.isDown || !onFloor() && isJump)) { mario.setFrame(Config.player.frames.jumpFrame); }
 
         if (!isDying && mario.body.y > map.heightInPixels) { playerDie(false); }
-        if (!isDying && isFire) mario.setFrame(config.player.frames.fireFrame);
+        if (!isDying && isFire) mario.setFrame(Config.player.frames.fireFrame);
 
         if (!isDying && (hotkeys.shoot1.isDown || hotkeys.shoot2.isDown)) {
-            mario.setFrame(config.player.frames.fireFrame);
+            mario.setFrame(Config.player.frames.fireFrame);
             shoot();
         }
 
@@ -273,7 +273,7 @@ class BaseLevel extends Phaser.Scene {
 
         goombas.forEach(goomba => {
             if (goomba && goomba.active && !goomba.hit) {
-                goomba.anims.play(config.goomba.frames.framesName, true)
+                goomba.anims.play(Config.goomba.frames.framesName, true)
             }
         })
 
@@ -301,10 +301,10 @@ class BaseLevel extends Phaser.Scene {
     createSnowflake() {
         const x = Phaser.Math.Between(0, map.widthInPixels);
         const y = 0;
-        const scale = Phaser.Math.FloatBetween(config.snowflake.scaleMin, config.snowflake.scaleMax);
-        const alpha = Phaser.Math.FloatBetween(config.snowflake.alphaMin, config.snowflake.alphaMax);
-        const speed = Phaser.Math.Between(config.snowflake.speedMin, config.snowflake.speedMax);
-        const drift = Phaser.Math.Between(config.snowflake.driftMin, config.snowflake.driftMax);
+        const scale = Phaser.Math.FloatBetween(Config.snowflake.scaleMin, Config.snowflake.scaleMax);
+        const alpha = Phaser.Math.FloatBetween(Config.snowflake.alphaMin, Config.snowflake.alphaMax);
+        const speed = Phaser.Math.Between(Config.snowflake.speedMin, Config.snowflake.speedMax);
+        const drift = Phaser.Math.Between(Config.snowflake.driftMin, Config.snowflake.driftMax);
 
         let snowflake = this.add.sprite(x, y, 'snowflake');
         this.physics.world.enable(snowflake);
@@ -317,8 +317,8 @@ class BaseLevel extends Phaser.Scene {
         // spinning 360 degrees instead of falling down just with drifting
         this.tweens.add({
             targets: snowflake,
-            angle: config.snowflake.spinningAngle,
-            duration: Phaser.Math.Between(config.snowflake.spinningDurationMin, config.snowflake.spinningDurationMax),
+            angle: Config.snowflake.spinningAngle,
+            duration: Phaser.Math.Between(Config.snowflake.spinningDurationMin, Config.snowflake.spinningDurationMax),
             repeat: -1
         });
 
@@ -330,23 +330,23 @@ class BaseLevel extends Phaser.Scene {
     }
 
     createMainButtons() {
-        const canvasWidth = config.canvas.width;
-        const buttonWidth = config.elementSettings.generalButtonWidth;
-        const buttonHeight = config.elementSettings.generalButtonHeight;
-        const gap = config.elementSettings.gapBetweenButtons;
+        const canvasWidth = Config.canvas.width;
+        const buttonWidth = Config.elementSettings.generalButtonWidth;
+        const buttonHeight = Config.elementSettings.generalButtonHeight;
+        const gap = Config.elementSettings.gapBetweenButtons;
 
         let buttonX = canvasWidth - buttonWidth / 2 - gap; // Right-aligned with padding
         let buttonY = buttonHeight / 2 + gap; // Starts with a top padding
 
-        if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && config.elementSettings.showFullscreenButtonOnDesktop)) fullscreenButton = this.createButton(buttonX - buttonWidth - gap, buttonY, 'fullscreenbutton', () => toggleFullscreenMode(), null, config.hovercolor, false, true);
+        if (!this.sys.game.device.os.desktop || (this.sys.game.device.os.desktop && Config.elementSettings.showFullscreenButtonOnDesktop)) fullscreenButton = this.createButton(buttonX - buttonWidth - gap, buttonY, 'fullscreenbutton', () => toggleFullscreenMode(), null, Config.hovercolor, false, true);
 
         const settingsButton = this.createButton(buttonX, buttonY, 'settingsbutton', () => toggleSettingsMenu(false), null, '0xA1A1A1', false, true);
         buttonY += settingsButton.height + gap;
 
-        reloadGameButton = this.createButton(buttonX, buttonY, 'reloadbutton', () => restartGame(), null, config.hovercolor, false, true);
+        reloadGameButton = this.createButton(buttonX, buttonY, 'reloadbutton', () => restartGame(), null, Config.hovercolor, false, true);
         buttonY += reloadGameButton.height + gap;
 
-        homeButton = this.createButton(buttonX, buttonY, 'menubutton', () => stopGame(), null, config.hovercolor, false, true);
+        homeButton = this.createButton(buttonX, buttonY, 'menubutton', () => stopGame(), null, Config.hovercolor, false, true);
         buttonY += homeButton.height + gap + 70;
 
         // https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-overview/
@@ -354,8 +354,8 @@ class BaseLevel extends Phaser.Scene {
         volumeSlider = this.rexUI.add.slider({
             x: buttonX,
             y: buttonY,
-            width: config.elementSettings.sliderWidth,
-            height: config.elementSettings.sliderHeight,
+            width: Config.elementSettings.sliderWidth,
+            height: Config.elementSettings.sliderHeight,
             orientation: 'y',
             value: 1 - sliderValue,
 
@@ -399,12 +399,12 @@ class BaseLevel extends Phaser.Scene {
     }
 
     createMobileButtons() {
-        const jumpbutton = this.createButton(config.canvas.width - 70, config.canvas.height - 70, 'jumpbutton', () => { jump(); isJump = true }, () => isJump = false, '#000', true, false)
-        this.createButton(jumpbutton.x - jumpbutton.width - 35, config.canvas.height - 70, 'firebutton', () => { shoot(); isFire = true }, () => isFire = false, '#000', true, false)
+        const jumpbutton = this.createButton(Config.canvas.width - 70, Config.canvas.height - 70, 'jumpbutton', () => { jump(); isJump = true }, () => isJump = false, '#000', true, false)
+        this.createButton(jumpbutton.x - jumpbutton.width - 35, Config.canvas.height - 70, 'firebutton', () => { shoot(); isFire = true }, () => isFire = false, '#000', true, false)
 
         // Left + Right Button
-        const leftButton = this.createButton(config.leftRightButtonPosition, config.canvas.height - 70, 'leftbutton', () => isMovingLeft = true, () => isMovingLeft = false, '#000', true, false);
-        this.createButton(config.leftRightButtonPosition + leftButton.width, config.canvas.height - 70, 'rightbutton', () => isMovingRight = true, () => isMovingRight = false, '#000', true, false);
+        const leftButton = this.createButton(Config.leftRightButtonPosition, Config.canvas.height - 70, 'leftbutton', () => isMovingLeft = true, () => isMovingLeft = false, '#000', true, false);
+        this.createButton(Config.leftRightButtonPosition + leftButton.width, Config.canvas.height - 70, 'rightbutton', () => isMovingRight = true, () => isMovingRight = false, '#000', true, false);
     }
 
     createButton(x, y, texture, onClick, onClickFinished = null, tintColor = null, showTintForPointerClick, showTintForPointerOver) {
@@ -461,7 +461,7 @@ class BaseLevel extends Phaser.Scene {
 
             if (bullet.data && bullet.data.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
 
-            totalPossiblePointsInLevel += config.bullet.bulletHitPoints;
+            totalPossiblePointsInLevel += Config.bullet.bulletHitPoints;
         })
 
         let finishFlags = map.createFromObjects('gameobjects', {
@@ -482,10 +482,10 @@ class BaseLevel extends Phaser.Scene {
 
         coins.forEach(coin => {
             this.physics.world.enable(coin);
-            coin.body.setBounceY(Phaser.Math.FloatBetween(config.coins.minBounce, config.coins.maxBounce));
-            coin.body.setCircle(config.coins.circleRadius)
-            coin.setScale(config.coins.scale);
-            totalPossiblePointsInLevel += config.coins.coinPoints;
+            coin.body.setBounceY(Phaser.Math.FloatBetween(Config.coins.minBounce, Config.coins.maxBounce));
+            coin.body.setCircle(Config.coins.circleRadius)
+            coin.setScale(Config.coins.scale);
+            totalPossiblePointsInLevel += Config.coins.coinPoints;
             totalPossibleCoinsInLevel++;
         })
 
@@ -499,7 +499,7 @@ class BaseLevel extends Phaser.Scene {
             breakingIce.active = true;
             breakingIce.body.allowGravity = false;
             breakingIce.body.immovable = true;
-            breakingIce.setFrame(config.breakingIce.frames.initialFrame);
+            breakingIce.setFrame(Config.breakingIce.frames.initialFrame);
             breakingIce.timeoutActive = false;
             breakingIce.startTime = null;
         })
@@ -512,15 +512,15 @@ class BaseLevel extends Phaser.Scene {
 
         goombas.forEach(goomba => {
             this.physics.world.enable(goomba);
-            goomba.body.setCollideWorldBounds(config.goomba.collideWithWorldBounds);
-            goomba.body.setCircle(config.goomba.circleRadius); //.setSize for rectangle
-            goomba.body.setOffset(config.goomba.offsetX, config.goomba.offsetY);        // Positions image inside the rectangle/circle
-            goomba.setScale(config.goomba.scaleX, config.goomba.scaleY)
-            goomba.setFlipX(config.goomba.initialFlip);
+            goomba.body.setCollideWorldBounds(Config.goomba.collideWithWorldBounds);
+            goomba.body.setCircle(Config.goomba.circleRadius); //.setSize for rectangle
+            goomba.body.setOffset(Config.goomba.offsetX, Config.goomba.offsetY);        // Positions image inside the rectangle/circle
+            goomba.setScale(Config.goomba.scaleX, Config.goomba.scaleY)
+            goomba.setFlipX(Config.goomba.initialFlip);
             goomba.active = true;
             goomba.hit = false;
-            goomba.body.setVelocityX(config.goomba.velocityX);
-            totalPossiblePointsInLevel += config.goomba.goombaHitPoints;
+            goomba.body.setVelocityX(Config.goomba.velocityX);
+            totalPossiblePointsInLevel += Config.goomba.goombaHitPoints;
         })
 
         goombaWalls = map.createFromObjects('gameobjects', {
@@ -662,7 +662,7 @@ class Level4 extends BaseLevel {
 function handleBreakingIce(breakingIce) {
     if (!breakingIce.active) return;
 
-    const iceAnimsConfig = config.breakingIce.frames;
+    const iceAnimsConfig = Config.breakingIce.frames;
     const iceStartingX = breakingIce.x - 32 / 2;
     const iceStartingY = breakingIce.y - 32 / 2;
     const iceEndingX = iceStartingX + 32;
@@ -671,7 +671,7 @@ function handleBreakingIce(breakingIce) {
     const marioEndingX = marioStartingX + mario.body.width;
     const mariobottomY = mario.y + mario.body.height / 2;
 
-    const isOnIceY = Math.abs(mariobottomY - iceStartingY) < config.breakingIce.toleranceYDifference;
+    const isOnIceY = Math.abs(mariobottomY - iceStartingY) < Config.breakingIce.toleranceYDifference;
     const isOverlappingX = marioEndingX > iceStartingX && marioStartingX < iceEndingX;
 
     if (isOnIceY && isOverlappingX) {
@@ -681,7 +681,7 @@ function handleBreakingIce(breakingIce) {
         }
 
         if (!breakingIce.anims.isPlaying && !breakingIce.animationComplete) {
-            breakingIce.anims.play(config.breakingIce.frames.framesName);
+            breakingIce.anims.play(Config.breakingIce.frames.framesName);
 
 
             // if using additional wait time, waits on last frame
@@ -701,7 +701,7 @@ function handleBreakingIce(breakingIce) {
         }
     } else {
         breakingIce.anims.stop();
-        breakingIce.setFrame(config.breakingIce.frames.initialFrame);
+        breakingIce.setFrame(Config.breakingIce.frames.initialFrame);
         breakingIce.timeoutActive = false;
         breakingIce.startTime = null;
         breakingIce.animationComplete = false;
@@ -717,7 +717,7 @@ function playerDie(showDieAnimation = true) {
     death.play();
 
     if (showDieAnimation) {
-        mario.anims.stop(config.player.frames.framesName);
+        mario.anims.stop(Config.player.frames.framesName);
         mario.setFrame(6);
         isDying = true;
 
@@ -760,7 +760,7 @@ function toggleSettingsMenu(initialToggle = false) {
     };
 
     if (initialToggle) {
-        const isVisible = config.elementSettings.isSettingsMenuInitiallyActive;
+        const isVisible = Config.elementSettings.isSettingsMenuInitiallyActive;
         setVisibility(isVisible);
         isSettingsMenuActive = isVisible;
     } else {
@@ -773,18 +773,18 @@ function shoot() {
     let fireball;
 
     if (level.time.now > lastfire && maxFireballs > 0) {
-        lastfire = level.time.now + config.fire.delay;
+        lastfire = level.time.now + Config.fire.delay;
 
         if (mario.flipX) {
             fireball = level.physics.add.sprite(mario.x - 20, mario.y, 'fireball');
-            fireball.setVelocity(-config.fire.fireballVelocityX, config.fire.fireballVelocityY);
+            fireball.setVelocity(-Config.fire.fireballVelocityX, Config.fire.fireballVelocityY);
         } else {
             fireball = level.physics.add.sprite(mario.x + 20, mario.y, 'fireball');
-            fireball.setVelocity(config.fire.fireballVelocityX, config.fire.fireballVelocityY);
+            fireball.setVelocity(Config.fire.fireballVelocityX, Config.fire.fireballVelocityY);
         }
 
         fireball.body.allowGravity = true;
-        fireball.body.setCircle(config.fire.circleRadius);
+        fireball.body.setCircle(Config.fire.circleRadius);
         maxFireballs--;
         fire.play();
 
@@ -796,7 +796,7 @@ function shoot() {
         level.physics.add.overlap(fireball, bullets, destroyEnemy, null, this);
         level.physics.add.overlap(fireball, goombas, destroyEnemy, null, this);
 
-        level.time.delayedCall(config.fire.lifespan, function () {
+        level.time.delayedCall(Config.fire.lifespan, function () {
             maxFireballs++;
             fireball.destroy();
         }, [], this);
@@ -811,7 +811,7 @@ function resetVariables(resetCounter, resetLevels, resetTotalFails = false) {
         jumps = 0;
     }
 
-    if (resetLevels) currentLevel = config.startCurrentLevel;
+    if (resetLevels) currentLevel = Config.startCurrentLevel;
     if (resetTotalFails) totalFails = 0;
 
     totalPossiblePointsInLevel = 0;
@@ -821,14 +821,14 @@ function resetVariables(resetCounter, resetLevels, resetTotalFails = false) {
     lastfire = 0;
     isMovingLeft = false;
     isMovingRight = false;
-    maxFireballs = config.fire.maxFireballs;
+    maxFireballs = Config.fire.maxFireballs;
 }
 
 function destroyEnemy(fireball, entity) {
     let points = 0;
 
-    if (entity.name === config.bullet.name) points = config.bullet.bulletHitPoints;
-    else if (entity.name === config.goomba.name) points = config.goomba.goombaHitPoints;
+    if (entity.name === Config.bullet.name) points = Config.bullet.bulletHitPoints;
+    else if (entity.name === Config.goomba.name) points = Config.goomba.goombaHitPoints;
 
     updateScoreText(points);
     pop.play();
@@ -846,18 +846,18 @@ function handleGoombaHit(mario, goomba) {
     let marioBottom = mario.y + mario.body.height / 2;
     let goombaTop = goomba.y - goomba.body.height / 2;
 
-    if (marioBottom >= goombaTop - config.goomba.collisionTolerance && marioBottom <= goombaTop + config.goomba.collisionTolerance) {
+    if (marioBottom >= goombaTop - Config.goomba.collisionTolerance && marioBottom <= goombaTop + Config.goomba.collisionTolerance) {
         // Mario lands on Goomba
-        goomba.anims.stop(config.goomba.frames.framesName);
-        goomba.setFrame(config.goomba.frames.dieFrame);
+        goomba.anims.stop(Config.goomba.frames.framesName);
+        goomba.setFrame(Config.goomba.frames.dieFrame);
         goomba.body.setVelocity(0, 0);
         goomba.hit = true;
 
-        updateScoreText(config.goomba.goombaHitPoints);
-        mario.body.velocity.y = config.goomba.playerHitJumpHeight;
+        updateScoreText(Config.goomba.goombaHitPoints);
+        mario.body.velocity.y = Config.goomba.playerHitJumpHeight;
         pop.play();
 
-        level.time.delayedCall(config.goomba.despawnTime, function () {
+        level.time.delayedCall(Config.goomba.despawnTime, function () {
             goomba.destroy();
         }, [], this);
     } else playerDie(true);
@@ -865,8 +865,8 @@ function handleGoombaHit(mario, goomba) {
 
 function jump() {
     if (isValidJump()) {
-        if (counter == 0) mario.body.velocity.y = config.player.jumpHeight;
-        else mario.body.velocity.y = config.player.doubleJumpHeight;
+        if (counter == 0) mario.body.velocity.y = Config.player.jumpHeight;
+        else mario.body.velocity.y = Config.player.doubleJumpHeight;
         incrementJumps();
         jumpsound.play();
         counter++;
@@ -888,7 +888,7 @@ function isOnFloor() {
 // Handle finish -> increment level, if level > exist => finishAll, otherwise finish + neues Level
 function handleFinish() {
     currentLevel++;
-    config.startCurrentLevel = currentLevel;
+    Config.startCurrentLevel = currentLevel;
     totalFails += fails;
 
     this.scene.stop();
@@ -924,7 +924,7 @@ function mptouchedown(mplayer, mplatform) {
 function collectCoins(mario, coin) {
     coin.destroy();
 
-    updateScoreText(config.coins.coinPoints);
+    updateScoreText(Config.coins.coinPoints);
     coinsAmount++;
     coinsText.setText(messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel));
 
@@ -964,7 +964,7 @@ function toggleFullscreenMode() {
             let fullscreen = level.sys.game.device.fullscreen;
             canvas[fullscreen.request]();
 
-            const fullscreenHint = level.add.text(config.canvas.width / 2, config.canvas.height / 1.6, messages.fullscreen_landscape_hit, {
+            const fullscreenHint = level.add.text(Config.canvas.width / 2, Config.canvas.height / 1.6, messages.fullscreen_landscape_hit, {
                 fontSize: '30px',
                 fill: 'red',
                 align: 'center',
@@ -972,9 +972,9 @@ function toggleFullscreenMode() {
                 strokeThickness: 1.5
             }).setScrollFactor(0).setOrigin(0.5);
 
-            const landscapeIcon = level.add.image(config.canvas.width / 2, config.canvas.height / 2.2, 'landscape-icon').setScrollFactor(0).setOrigin(0.5);;
+            const landscapeIcon = level.add.image(Config.canvas.width / 2, Config.canvas.height / 2.2, 'landscape-icon').setScrollFactor(0).setOrigin(0.5);;
 
-            level.time.delayedCall(config.fullscreenHintDisplayDuration, function () {
+            level.time.delayedCall(Config.fullscreenHintDisplayDuration, function () {
                 fullscreenHint.destroy();
                 landscapeIcon.destroy();
             })
@@ -993,7 +993,7 @@ var levels = [
     { name: 'level4', classRef: Level4 },
 ];
 
-var game = new Phaser.Game(config.canvas);  //main game instance - using the config object
+var game = new Phaser.Game(Config.canvas);  //main game instance - using the Config object
 
 game.scene.add("finishedlevel", FinishedLevel);
 game.scene.add("finishedlastlevel", FinishedLastLevel);

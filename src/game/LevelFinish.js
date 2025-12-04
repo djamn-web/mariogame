@@ -1,7 +1,7 @@
-import { config } from './Config.js';
+import { Config } from './Config.js';
 import { messages } from './Messages.js';
 
-const { width, height } = config.canvas;
+const { width, height } = Config.canvas;
 
 export class FinishedLevel extends Phaser.Scene {
     create(data) {
@@ -17,7 +17,7 @@ export class FinishedLevel extends Phaser.Scene {
 
         handleParticles(this, false);
 
-        this.time.delayedCall(config.finishLevelScreenTime, data.nextLevel, [], this)
+        this.time.delayedCall(Config.finishLevelScreenTime, data.nextLevel, [], this)
     }
 }
 
@@ -37,7 +37,7 @@ export class FinishedLastLevel extends Phaser.Scene {
 
         handleParticles(this, true);
 
-        this.time.delayedCall(config.finishLevelScreenTime, data.backToMenu, [], this)
+        this.time.delayedCall(Config.finishLevelScreenTime, data.backToMenu, [], this)
     }
 }
 
