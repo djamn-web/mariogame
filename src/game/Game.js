@@ -461,6 +461,7 @@ class BaseLevel extends Phaser.Scene {
 
             bullet.startingX = bullet.x;
             bullet.startingY = bullet.y;
+            bullet.setDepth(1);
 
             if (bullet.data?.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
 
