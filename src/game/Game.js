@@ -49,21 +49,24 @@ let snowflakes = [];
 
 class Preload {
     preload() {
-        AssetConfig.images.forEach(image => {
+        for (const image of AssetConfig.images) {
             this.load.image(image.key, image.path);
-        });
+        }
 
-        AssetConfig.audio.forEach(sound => {
+        for (const sound of AssetConfig.audio) {
             this.load.audio(sound.key, sound.path);
-        });
+        }
 
-        AssetConfig.spritesheets.forEach(sheet => {
-            this.load.spritesheet(sheet.key, sheet.path, { frameWidth: sheet.frameWidth, frameHeight: sheet.frameHeight });
-        });
+        for (const sheet of AssetConfig.spritesheets) {
+            this.load.spritesheet(sheet.key, sheet.path, {
+                frameWidth: sheet.frameWidth,
+                frameHeight: sheet.frameHeight
+            });
+        }
 
-        AssetConfig.tilemaps.forEach(map => {
+        for (const map of AssetConfig.tilemaps) {
             this.load.tilemapTiledJSON(map.key, map.path);
-        });
+        }
     }
 
     create() {
@@ -240,7 +243,7 @@ class BaseLevel extends Phaser.Scene {
         foregroundLayer.x = camera.scrollX * 0.3;
         skyLayer.x = camera.scrollX * 0.8;
 
-        bullets.forEach(bullet => {
+        for (const bullet of bullets) {
             if (bullet?.active && bullet.data?.values) {
                 const setbackX = bullet.data.values.bullet_setback_x;
                 const setbackY = bullet.data.values.bullet_setback_y;
@@ -269,13 +272,13 @@ class BaseLevel extends Phaser.Scene {
                     bullet.setPosition(bullet.startingX, bullet.startingY);
                 }
             }
-        })
+        }
 
-        goombas.forEach(goomba => {
+        for (const goomba of goombas) {
             if (goomba?.active && !goomba.hit) {
                 goomba.anims.play(Config.goomba.frames.framesName, true)
             }
-        })
+        }
 
         snowflakes = snowflakes.filter(snowflake => {
             if (snowflake.y >= map.widthInPixels) {
@@ -285,9 +288,9 @@ class BaseLevel extends Phaser.Scene {
             return true;
         })
 
-        breakingIces.forEach(breakingIce => {
+        for (const breakingIce of breakingIces) {
             handleBreakingIce(breakingIce);
-        });
+        }
 
         music.setVolume(sliderValue);
         jumpsound.setVolume(sliderValue);
@@ -451,7 +454,7 @@ class BaseLevel extends Phaser.Scene {
 
         bullets.push(...redBullets);
 
-        bullets.forEach(bullet => {
+        for (const bullet of bullets) {
             this.physics.world.enable(bullet);
             bullet.body.allowGravity = false;
             bullet.body.immovable = true;
@@ -462,39 +465,39 @@ class BaseLevel extends Phaser.Scene {
             if (bullet.data?.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
 
             totalPossiblePointsInLevel += Config.bullet.bulletHitPoints;
-        })
+        }
 
         let finishFlags = map.createFromObjects('gameobjects', {
             name: 'flag',
             key: 'flag',
         })
 
-        finishFlags.forEach(finishFlag => {
+        for (const finishFlag of finishFlags) {
             this.physics.world.enable(finishFlag);
             finishFlag.body.allowGravity = false;
             finishFlag.body.immovable = true;
-        })
+        }
 
         coins = map.createFromObjects('gameobjects', {
             name: 'coin',
             key: 'coins',
         })
 
-        coins.forEach(coin => {
+        for (const coin of coins) {
             this.physics.world.enable(coin);
             coin.body.setBounceY(Phaser.Math.FloatBetween(Config.coins.minBounce, Config.coins.maxBounce));
             coin.body.setCircle(Config.coins.circleRadius)
             coin.setScale(Config.coins.scale);
             totalPossiblePointsInLevel += Config.coins.coinPoints;
             totalPossibleCoinsInLevel++;
-        })
+        }
 
         breakingIces = map.createFromObjects('gameobjects', {
             name: 'breaking-ice',
             key: 'breaking-ice'
         })
 
-        breakingIces.forEach(breakingIce => {
+        for (const breakingIce of breakingIces) {
             this.physics.world.enable(breakingIce);
             breakingIce.active = true;
             breakingIce.body.allowGravity = false;
@@ -502,15 +505,14 @@ class BaseLevel extends Phaser.Scene {
             breakingIce.setFrame(Config.breakingIce.frames.initialFrame);
             breakingIce.timeoutActive = false;
             breakingIce.startTime = null;
-        })
+        }
 
         goombas = map.createFromObjects('gameobjects', {
             name: 'goomba',
             key: 'goomba',
         })
 
-
-        goombas.forEach(goomba => {
+        for (const goomba of goombas) {
             this.physics.world.enable(goomba);
             goomba.body.setCollideWorldBounds(Config.goomba.collideWithWorldBounds);
             goomba.body.setCircle(Config.goomba.circleRadius); //.setSize for rectangle
@@ -521,18 +523,18 @@ class BaseLevel extends Phaser.Scene {
             goomba.hit = false;
             goomba.body.setVelocityX(Config.goomba.velocityX);
             totalPossiblePointsInLevel += Config.goomba.goombaHitPoints;
-        })
+        }
 
         goombaWalls = map.createFromObjects('gameobjects', {
             name: 'wall',
         })
 
-        goombaWalls.forEach(goombaWall => {
+        for (const goombaWall of goombaWalls) {
             this.physics.world.enable(goombaWall);
             goombaWall.body.immovable = true;
             goombaWall.body.allowGravity = false;
             goombaWall.visible = false
-        })
+        }
 
         // var shape = this.rexUI.add.roundRectangle(goombas[0].x, goombas[0].y - goombas[0].height/2, 1,1, 1, 0x000);
 
@@ -557,23 +559,23 @@ class BaseLevel extends Phaser.Scene {
             frame: frameIndex
         });
 
-        platforms.forEach((gameObject) => {
+        for (const platform of platforms) {
             // Tween for every game object will be created
+            const values = platform.data.values;
             this.tweens.add({
-                targets: gameObject,
-                y: gameObject.data.values.y_end_height,
-                duration: gameObject.data.values.duration, // Use the custom duration from Tiled
-                ease: gameObject.data.values.ease,
-                yoyo: gameObject.data.values.yoyo,
-                repeat: gameObject.data.values.repeat,
+                targets: platform,
+                y: values.y_end_height,
+                duration: values.duration, // Use the custom duration from Tiled
+                ease: values.ease,
+                yoyo: values.yoyo,
+                repeat: values.repeat,
             });
-        });
+        }
 
         return platforms;
     }
 
     createTexts() {
-        // Text
         scoreText = this.createText(16, 16, messages.score_message.replace("{0}", score).replace("{1}", totalPossiblePointsInLevel), '22px', '#000', '#000', 0, "bold");
         coinsText = this.createText(16, 40, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0, "bold");
         failsText = this.createText(16, 64, messages.failscounter_message + fails, '22px', '#000', '#000', 0, "bold");
