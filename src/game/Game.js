@@ -241,7 +241,7 @@ class BaseLevel extends Phaser.Scene {
         skyLayer.x = camera.scrollX * 0.8;
 
         bullets.forEach(bullet => {
-            if (bullet && bullet.active && bullet.data && bullet.data.values) {
+            if (bullet?.active && bullet.data?.values) {
                 const setbackX = bullet.data.values.bullet_setback_x;
                 const setbackY = bullet.data.values.bullet_setback_y;
 
@@ -272,7 +272,7 @@ class BaseLevel extends Phaser.Scene {
         })
 
         goombas.forEach(goomba => {
-            if (goomba && goomba.active && !goomba.hit) {
+            if (goomba?.active && !goomba.hit) {
                 goomba.anims.play(Config.goomba.frames.framesName, true)
             }
         })
