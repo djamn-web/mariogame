@@ -119,7 +119,7 @@ class Config {
 
     static elementSettings = {
         isSettingsMenuInitiallyActive: false,
-        showFullscreenButtonOnDesktop: true,
+        showFullscreenButtonOnDesktop: false,
         showMobileButtonsOnDesktop: false,
         initialSliderValue: 1,
         sliderWidth: 20,
