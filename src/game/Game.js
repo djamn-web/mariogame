@@ -459,7 +459,7 @@ class BaseLevel extends Phaser.Scene {
             bullet.startingX = bullet.x;
             bullet.startingY = bullet.y;
 
-            if (bullet.data && bullet.data.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
+            if (bullet.data?.values) bullet.body.setVelocity(bullet.data.values.velocity_x ?? 0, bullet.data.values.velocity_y ?? 0);
 
             totalPossiblePointsInLevel += Config.bullet.bulletHitPoints;
         })
@@ -687,7 +687,7 @@ function handleBreakingIce(breakingIce) {
             // if using additional wait time, waits on last frame
             breakingIce.once('animationcomplete', () => {
                 breakingIce.animationComplete = true;
-                breakingIce.setFrame(iceAnimsConfig.breakingAnimation[iceAnimsConfig.breakingAnimation.length - 1]);
+                breakingIce.setFrame(iceAnimsConfig.breakingAnimation.at(-1)); // same as: [iceAnimsConfig.breakingAnimation.length - 1]
             });
         }
 
@@ -711,7 +711,6 @@ function handleBreakingIce(breakingIce) {
 //mario dies - Settings
 function playerDie(showDieAnimation = true) {
     if (isDying) return;
-    // this.physics.removeCollider(mario, breakingIces);
 
     music.stop();
     death.play();
