@@ -1,4 +1,4 @@
-var messages = {
+const messages = {
     title_won: "Finished Level!",
     title_won_sub: "Next level starts in a few seconds!",
     menu_header: "Welcome to this game!",

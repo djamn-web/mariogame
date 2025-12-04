@@ -9,7 +9,7 @@ export class FinishedLevel extends Phaser.Scene {
 
         createText(this, width * 0.5, height / 3, messages.title_won, '40px', '#000', '#000', 0.8)
         createText(this, width * 0.5, height / 2.3, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.42, height / 2.0, getFinishFailsMessage(data.fails), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.42, height / 2, getFinishFailsMessage(data.fails), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.5, height / 1.6, messages.title_won_sub, '32px', '#000', '#000', 0.5)
 
         data.music.stop()
@@ -138,9 +138,9 @@ function getFinishScoreMessage(data) {
 }
 
 function getFinishFailsMessage(fails, isTotalFails = false) {
-    const messageKey = isTotalFails 
-        ? (fails === 1 ? 'finish_total_fail' : 'finish_total_fails')
-        : (fails === 1 ? 'finish_fail' : 'finish_fails');
+    const singularKey = isTotalFails ? 'finish_total_fail' : 'finish_fail';
+    const pluralKey = isTotalFails ? 'finish_total_fails' : 'finish_fails';
+    const messageKey = fails === 1 ? singularKey : pluralKey;
     
     return messages[messageKey].replace("{0}", fails);
 }

@@ -995,14 +995,14 @@ function closeFullscreenMode() {
     if (game.scale.isFullscreen) game.scale.stopFullscreen()
 }
 
-var levels = [
+let levels = [
     { name: 'level1', classRef: Level1 },
     { name: 'level2', classRef: Level2 },
     { name: 'level3', classRef: Level3 },
     { name: 'level4', classRef: Level4 },
 ];
 
-var game = new Phaser.Game(Config.canvas);  //main game instance - using the Config object
+let game = new Phaser.Game(Config.canvas);  //main game instance - using the Config object
 
 game.scene.add("finishedlevel", FinishedLevel);
 game.scene.add("finishedlastlevel", FinishedLastLevel);

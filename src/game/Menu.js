@@ -11,7 +11,7 @@ export class Menu {
         // or this.sys.game.Config.height
         this.add.tileSprite(0, 0, width * 2, height * 2, 'clouds').setOrigin(0, 0);
 
-        this.createText(width * 0.5, height / 5.0, messages.menu_header, '32px', '#000', '#000', 0.4);
+        this.createText(width * 0.5, height / 5, messages.menu_header, '32px', '#000', '#000', 0.4);
         this.createText(width * 0.5, height / 3.6, messages.menu_sub, '30px', '#000', '#000', 0.4);
 
         this.createText(widthLine1, height / 1.5, messages.menu_level1, '28px', '#000', '#000', 0.5, "bold");
