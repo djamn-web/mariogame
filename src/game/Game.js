@@ -407,7 +407,7 @@ class BaseLevel extends Phaser.Scene {
         this.createButton(Config.leftRightButtonPosition + leftButton.width, Config.canvas.height - 70, 'rightbutton', '#000', true, false, () => isMovingRight = true, () => isMovingRight = false);
     }
 
-    createButton(x, y, texture, tintColor, showTintForPointerClick, showTintForPointerOver,  onClick, onClickFinished = null,) {
+    createButton(x, y, texture, tintColor, showTintForPointerClick, showTintForPointerOver, onClick, onClickFinished = null,) {
         const button = this.add.sprite(x, y, texture).setInteractive();
         button.setScrollFactor(0);
         button.on('pointerdown', onClick);
@@ -953,32 +953,42 @@ function onFloor() {
 }
 
 function toggleFullscreenMode() {
-    if (game.scale.isFullscreen) game.scale.stopFullscreen()
-    else {
-        if (level.sys.game.device.os.desktop) {
-            game.scale.startFullscreen();
-        } else {
-            // Better Fullscreen Handling for Mobile Device
-            let canvas = level.sys.game.canvas;
-            let fullscreen = level.sys.game.device.fullscreen;
-            canvas[fullscreen.request]();
+    const { scale, device, canvas } = game;
+    const { os, fullscreen } = device;
 
-            const fullscreenHint = level.add.text(Config.canvas.width / 2, Config.canvas.height / 1.6, messages.fullscreen_landscape_hit, {
-                fontSize: '30px',
-                fill: 'red',
-                align: 'center',
-                stroke: 'darkred',
-                strokeThickness: 1.5
-            }).setScrollFactor(0).setOrigin(0.5);
-
-            const landscapeIcon = level.add.image(Config.canvas.width / 2, Config.canvas.height / 2.2, 'landscape-icon').setScrollFactor(0).setOrigin(0.5);;
-
-            level.time.delayedCall(Config.fullscreenHintDisplayDuration, function () {
-                fullscreenHint.destroy();
-                landscapeIcon.destroy();
-            })
-        }
+    if (scale.isFullscreen) {
+        return scale.stopFullscreen();
     }
+
+    if (level.sys.game.device.os.desktop) {
+        return scale.startFullscreen();
+    }
+
+    canvas[fullscreen.request]();
+    showMobileFullscreenHint();
+}
+
+function showMobileFullscreenHint() {
+    const cx = Config.canvas.width / 2;
+    const hintY = Config.canvas.height / 1.6;
+    const iconY = Config.canvas.height / 2.2;
+
+    const fullscreenHint = level.add.text(cx, hintY, messages.fullscreen_landscape_hit, {
+        fontSize: '30px',
+        fill: 'red',
+        align: 'center',
+        stroke: 'darkred',
+        strokeThickness: 1.5
+    }).setScrollFactor(0).setOrigin(0.5);
+
+    const landscapeIcon = level.add.image(cx, iconY, 'landscape-icon')
+        .setScrollFactor(0)
+        .setOrigin(0.5);
+
+    level.time.delayedCall(Config.fullscreenHintDisplayDuration, () => {
+        fullscreenHint.destroy();
+        landscapeIcon.destroy();
+    });
 }
 
 function closeFullscreenMode() {
