@@ -112,14 +112,14 @@ class Preload {
 
 class BaseLevel extends Phaser.Scene {
     // TODO extract url
-    preload() {
+    preload() {        
         const graphics = this.add.graphics();
         graphics.fillStyle(Config.snowflake.colorHex, 1);
         graphics.fillCircle(8, 8, 8);
         graphics.generateTexture('snowflake', 16, 16);
         graphics.destroy();
 
-        if (!alreadyPreloaded) {
+        if (!this.rexUI || !alreadyPreloaded) {            
             this.load.scenePlugin({
                 key: 'rexuiplugin',
                 url: 'game/assets/phaser/rexuiplugin.min.js',
@@ -851,6 +851,7 @@ function handleGoombaHit(mario, goomba) {
 
     let marioBottom = mario.y + mario.body.height / 2;
     let goombaTop = goomba.y - goomba.body.height / 2;
+
 
     if (marioBottom >= goombaTop - Config.goomba.collisionTolerance && marioBottom <= goombaTop + Config.goomba.collisionTolerance) {
         // Mario lands on Goomba
