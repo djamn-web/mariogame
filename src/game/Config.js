@@ -16,7 +16,7 @@ class Config {
         },
     };
 
-    static version = "4.0.1";       // MajorUpdate.MinorChanges.Fixes
+    static version = "4.1.0";       // MajorUpdate.MinorChanges.Fixes
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
     static startScene = "menu";               // Needs to be determined with startCurrentLevel together (when selecting level)
     static startCurrentLevel = 1;
