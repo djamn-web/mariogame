@@ -112,14 +112,14 @@ class Preload {
 
 class BaseLevel extends Phaser.Scene {
     // TODO extract url
-    preload() {        
+    preload() {
         const graphics = this.add.graphics();
         graphics.fillStyle(Config.snowflake.colorHex, 1);
         graphics.fillCircle(8, 8, 8);
         graphics.generateTexture('snowflake', 16, 16);
         graphics.destroy();
 
-        if (!this.rexUI || !alreadyPreloaded) {            
+        if (!this.rexUI || !alreadyPreloaded) {
             this.load.scenePlugin({
                 key: 'rexuiplugin',
                 url: 'game/assets/phaser/rexuiplugin.min.js',
@@ -447,8 +447,8 @@ class BaseLevel extends Phaser.Scene {
         platforms.addMultiple(brownplatforms);
 
         bullets = map.createFromObjects('gameobjects', {
-            name: 'bulle1t',
-            key: 'bulle1t',
+            name: 'bullet',
+            key: 'bullet',
         })
 
         const redBullets = map.createFromObjects('gameobjects', {
@@ -859,6 +859,7 @@ function handleGoombaHit(mario, goomba) {
         goomba.setFrame(Config.goomba.frames.dieFrame);
         goomba.body.setVelocity(0, 0);
         goomba.hit = true;
+        goomba.body.checkCollision.none = true; // removes all colliders
 
         updateScoreText(Config.goomba.goombaHitPoints);
         mario.body.velocity.y = Config.goomba.playerHitJumpHeight;
