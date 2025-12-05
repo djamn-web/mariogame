@@ -979,6 +979,12 @@ function toggleFullscreenMode() {
 
     canvas[fullscreen.request]();
     showMobileFullscreenHint();
+
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape')
+            .then(() => console.log('Screen orientation locked to landscape'))
+            .catch((err) => console.log('Orientation lock failed:', err.name));
+    }
 }
 
 function showMobileFullscreenHint() {
