@@ -223,7 +223,11 @@ class BaseLevel extends Phaser.Scene {
             if (!isDying) mario.setFrame(Config.player.frames.standingStillFrame);
         }
 
-        if (!isDying && (Phaser.Input.Keyboard.JustDown(hotkeys.jump) || Phaser.Input.Keyboard.JustDown(hotkeys.jump2) || Phaser.Input.Keyboard.JustDown(cursors.up))) {
+        if (Config.player.cheat && !isDying && cursors.up.isDown) {
+            fly();
+        }
+
+        if (!Config.player.cheat && !isDying && (Phaser.Input.Keyboard.JustDown(hotkeys.jump) || Phaser.Input.Keyboard.JustDown(hotkeys.jump2) || Phaser.Input.Keyboard.JustDown(cursors.up))) {
             jump();
         }
 
@@ -443,8 +447,8 @@ class BaseLevel extends Phaser.Scene {
         platforms.addMultiple(brownplatforms);
 
         bullets = map.createFromObjects('gameobjects', {
-            name: 'bullet',
-            key: 'bullet',
+            name: 'bulle1t',
+            key: 'bulle1t',
         })
 
         const redBullets = map.createFromObjects('gameobjects', {
@@ -873,6 +877,10 @@ function jump() {
         jumpsound.play();
         counter++;
     }
+}
+
+function fly() {
+    mario.body.velocity.y = Config.player.flySpeedY;
 }
 
 function isValidJump() {

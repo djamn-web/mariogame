@@ -27,6 +27,8 @@ class Config {
     static showSnow = true;                     // General value to show snow in all levels or only specific ones
 
     static player = {
+        cheat: true,
+        flySpeedY: -500,
         collideWithWorldBounds: true,
         sizeX: 25,
         sizeY: 50,
