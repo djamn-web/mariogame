@@ -14,6 +14,7 @@ const messages = {
     coins_message: "Coins: {0}/{1}",
     failscounter_message: "Fails: ",
     jumpscounter_message: "Jumps: ",
+    gametime: "Level Time: {0}",
     notavailable: "This game is currently not available",
     fullscreen_landscape_hit: "To ensure working game!",
     version: "Version:",
@@ -25,6 +26,5 @@ const messages = {
     finish_total_fails: "Your total fails: {0} fails",
     christmas_event: "Christmas Special"
 };
-
 
 export { messages };

@@ -11,6 +11,7 @@ let isMusicMuted = false;
 let fails = 0;
 let totalFails = 0;
 let jumps = 0;
+let gameTime = 0;
 let score = 0;
 let coinsAmount = 0;
 let totalPossibleCoinsInLevel = 0;
@@ -22,7 +23,7 @@ let isDying = false;
 let maxFireballs = Config.fire.maxFireballs;
 
 // General
-let mario, camera, map, level, currentLevel, currentLevelName;
+let mario, camera, map, level, currentLevel, currentLevelName, gameTimer;
 
 // background
 let skyLayer, middleLayer, foregroundLayer;
@@ -38,7 +39,7 @@ let isMovingLeft, isMovingRight, isJump, isFire;
 let bullets, fireballs, platforms, coins, goombas, goombaWalls, breakingIces;
 
 // Texts
-let scoreText, failsText, jumpsText, coinsText;
+let scoreText, failsText, jumpsText, coinsText, gameTimeText;
 
 // music
 let music, stageclear, death, coinsound, jumpsound, pop, fire;
@@ -207,6 +208,14 @@ class BaseLevel extends Phaser.Scene {
                 loop: true
             })
         }
+
+        // Game Time Handling
+        gameTimer = this.time.addEvent({
+            delay: 1000,
+            callback: this.onTimerTick,
+            callbackScope: this,
+            loop: true
+        });
     }
 
     update() {
@@ -303,6 +312,21 @@ class BaseLevel extends Phaser.Scene {
         fire.setVolume(sliderValue);
         pop.setVolume(sliderValue);
         coinsound.setVolume(sliderValue);
+    }
+
+    onTimerTick() {
+        gameTime++;
+        gameTimeText.setText(messages.gametime.replace("{0}", this.formatTime(gameTime)));
+    }
+
+    formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secondsPart = seconds % 60;
+
+        const secondsPartStr = secondsPart.toString().padStart(2, '0');
+        const minutesStr = minutes.toString().padStart(2, '0');
+
+        return `${minutesStr}:${secondsPartStr}`;
     }
 
     createSnowflake() {
@@ -584,7 +608,8 @@ class BaseLevel extends Phaser.Scene {
         scoreText = this.createText(16, 16, messages.score_message.replace("{0}", score).replace("{1}", totalPossiblePointsInLevel), '22px', '#000', '#000', 0, "bold");
         coinsText = this.createText(16, 40, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0, "bold");
         failsText = this.createText(16, 64, messages.failscounter_message + fails, '22px', '#000', '#000', 0, "bold");
-        jumpsText = this.createText(16, 88, messages.jumpscounter_message + jumps, '22px', '#000', '#000', 0, "bold");
+        // jumpsText = this.createText(16, 88, messages.jumpscounter_message + jumps, '22px', '#000', '#000', 0, "bold");
+        gameTimeText = this.createText(16, 88, messages.gametime.replace("{0}", this.formatTime(gameTime)), '22px', '#000', '#000', 0, "bold"); // TODO
     }
 
 }
@@ -815,6 +840,7 @@ function resetVariables(resetCounter, resetLevels, resetTotalFails = false) {
     if (resetCounter) {
         fails = 0;
         jumps = 0;
+        gameTime = 0;
     }
 
     if (resetLevels) currentLevel = Config.startCurrentLevel;
@@ -958,7 +984,7 @@ function updateScoreText(points) {
 // jumps counter
 function incrementJumps() {
     jumps += 1;
-    jumpsText.setText(messages.jumpscounter_message + jumps);
+    // jumpsText.setText(messages.jumpscounter_message + jumps);
 }
 
 function onFloor() {
