@@ -15,6 +15,7 @@ const messages = {
     failscounter_message: "Fails: ",
     jumpscounter_message: "Jumps: ",
     gametime: "Level Time: {0}",
+    menu_gametime: "Your level time: {0}",
     notavailable: "This game is currently not available",
     fullscreen_landscape_hit: "To ensure working game!",
     version: "Version:",

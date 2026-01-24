@@ -1,4 +1,5 @@
 import { Config } from './Config.js';
+import { Util } from './Util.js';
 import { messages } from './Messages.js';
 import { AssetConfig } from './AssetConfig.js';
 import { Menu } from './Menu.js';
@@ -316,17 +317,7 @@ class BaseLevel extends Phaser.Scene {
 
     onTimerTick() {
         gameTime++;
-        gameTimeText.setText(messages.gametime.replace("{0}", this.formatTime(gameTime)));
-    }
-
-    formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const secondsPart = seconds % 60;
-
-        const secondsPartStr = secondsPart.toString().padStart(2, '0');
-        const minutesStr = minutes.toString().padStart(2, '0');
-
-        return `${minutesStr}:${secondsPartStr}`;
+        gameTimeText.setText(messages.gametime.replace("{0}", Util.formatTime(gameTime)));
     }
 
     createSnowflake() {
@@ -609,7 +600,7 @@ class BaseLevel extends Phaser.Scene {
         coinsText = this.createText(16, 40, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0, "bold");
         failsText = this.createText(16, 64, messages.failscounter_message + fails, '22px', '#000', '#000', 0, "bold");
         // jumpsText = this.createText(16, 88, messages.jumpscounter_message + jumps, '22px', '#000', '#000', 0, "bold");
-        gameTimeText = this.createText(16, 88, messages.gametime.replace("{0}", this.formatTime(gameTime)), '22px', '#000', '#000', 0, "bold"); // TODO
+        gameTimeText = this.createText(16, 88, messages.gametime.replace("{0}", Util.formatTime(gameTime)), '22px', '#000', '#000', 0, "bold"); // TODO
     }
 
 }
@@ -852,9 +843,9 @@ function handleFinish() {
     this.scene.stop();
     if (currentLevel <= levels.length) {
         alreadyPreloaded = false;
-        this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
+        this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, gameTime: gameTime });
     } else {
-        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, totalFails: totalFails });
+        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, totalFails: totalFails, gameTime: gameTime });
     }
 }
 
