@@ -23,7 +23,7 @@ let isDying = false;
 let maxFireballs = Config.fire.maxFireballs;
 
 // General
-let mario, camera, map, level, currentLevel, currentLevelName, gameTimer;
+let mario, camera, map, level, currentLevel, currentLevelName, gameTimerEvent;
 
 // background
 let skyLayer, middleLayer, foregroundLayer;
@@ -209,8 +209,8 @@ class BaseLevel extends Phaser.Scene {
             })
         }
 
-        // Game Time Handling
-        gameTimer = this.time.addEvent({
+        // Game Time Handling        
+        gameTimerEvent = this.time.addEvent({
             delay: 1000,
             callback: this.onTimerTick,
             callbackScope: this,
@@ -831,7 +831,16 @@ function stopGame() {
     alreadyPreloaded = false;
     level.scene.stop();
     game.scene.start("menu");
+    gameTimerEvent.remove();
     // closeFullscreenMode();
+}
+
+// action to move back to menu after last level
+function backToMenu() {
+    resetVariables(true, true, true);
+    this.scene.stop();
+    this.scene.start("menu");
+    gameTimerEvent.remove();
 }
 
 // Handle finish -> increment level, if level > exist => finishAll, otherwise finish + neues Level
@@ -853,13 +862,7 @@ function nextLevel() {
     resetVariables(true, true);
     this.scene.stop();
     this.scene.start(levels[currentLevel - 1].name);
-}
-
-// action to move back to menu after last level
-function backToMenu() {
-    resetVariables(true, true, true);
-    this.scene.stop();
-    this.scene.start("menu");
+    gameTimerEvent.remove();
 }
 
 // Resets variables
