@@ -18,9 +18,9 @@ class Config {
 
     static version = "4.2.0";       // MajorUpdate.MinorChanges.Fixes
     static hovercolor = 0xFFB93C;               // Hovercolor of buttons
-    static startScene = "level4";               // Needs to be determined with startCurrentLevel together (when selecting level)
-    static startCurrentLevel = 4;
-    static finishLevelScreenTime = 55000;        // Determines how long the finish screen should be shown (in ms)
+    static startScene = "menu";               // Needs to be determined with startCurrentLevel together (when selecting level)
+    static startCurrentLevel = 1;
+    static finishLevelScreenTime = 5500;        // Determines how long the finish screen should be shown (in ms)
     static leftRightButtonPosition = 100;
     static fullscreenHintDisplayDuration = 3000;
     static snowyLevels = ["level3"];            // Show snow in specific levels
