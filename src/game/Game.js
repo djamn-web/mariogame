@@ -740,49 +740,6 @@ function handleBreakingIce(breakingIce) {
     }
 }
 
-//mario dies - Settings
-function playerDie(showDieAnimation = true) {
-    if (isDying) return;
-
-    music.stop();
-    death.play();
-
-    if (showDieAnimation) {
-        mario.anims.stop(Config.player.frames.framesName);
-        mario.setFrame(6);
-        isDying = true;
-
-        level.physics.world.removeCollider(mario.colliders.iceCollider);
-        level.physics.world.removeCollider(mario.colliders.floorLayerCollider);
-        level.physics.world.removeCollider(mario.colliders.enemyLayerCollider);
-        level.physics.world.removeCollider(mario.colliders.platformsCollider);
-        level.physics.world.removeCollider(mario.colliders.bulletsCollider);
-
-        level.time.delayedCall(1650, () => {
-            incrementFails();
-            restartGame();
-        }, [], this)
-    } else {
-        incrementFails();
-        restartGame();
-    }
-}
-
-function restartGame() {
-    resetVariables(false, false);
-    level.scene.restart();
-    music.stop();
-}
-
-function stopGame() {
-    resetVariables(true, true, true);
-    music.stop();
-    alreadyPreloaded = false;
-    level.scene.stop();
-    game.scene.start("menu");
-    // closeFullscreenMode();
-}
-
 function toggleSettingsMenu(initialToggle = false) {
     const toggleableElements = [volumeSlider, homeButton, reloadGameButton, sliderMinus, sliderPlus /*fullscreenButton*/];
 
@@ -832,6 +789,77 @@ function shoot() {
             fireball.destroy();
         }, [], this);
     }
+}
+
+//mario dies - Settings
+function playerDie(showDieAnimation = true) {
+    if (isDying) return;
+
+    music.stop();
+    death.play();
+
+    if (showDieAnimation) {
+        mario.anims.stop(Config.player.frames.framesName);
+        mario.setFrame(6);
+        isDying = true;
+
+        level.physics.world.removeCollider(mario.colliders.iceCollider);
+        level.physics.world.removeCollider(mario.colliders.floorLayerCollider);
+        level.physics.world.removeCollider(mario.colliders.enemyLayerCollider);
+        level.physics.world.removeCollider(mario.colliders.platformsCollider);
+        level.physics.world.removeCollider(mario.colliders.bulletsCollider);
+
+        level.time.delayedCall(1650, () => {
+            incrementFails();
+            restartGame();
+        }, [], this)
+    } else {
+        incrementFails();
+        restartGame();
+    }
+}
+
+function restartGame() {
+    resetVariables(false, false);
+    level.scene.restart();
+    music.stop();
+}
+
+function stopGame() {
+    resetVariables(true, true, true);
+    music.stop();
+    alreadyPreloaded = false;
+    level.scene.stop();
+    game.scene.start("menu");
+    // closeFullscreenMode();
+}
+
+// Handle finish -> increment level, if level > exist => finishAll, otherwise finish + neues Level
+function handleFinish() {
+    currentLevel++;
+    Config.startCurrentLevel = currentLevel;
+    totalFails += fails;
+
+    this.scene.stop();
+    if (currentLevel <= levels.length) {
+        alreadyPreloaded = false;
+        this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
+    } else {
+        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, totalFails: totalFails });
+    }
+}
+
+function nextLevel() {
+    resetVariables(true, true);
+    this.scene.stop();
+    this.scene.start(levels[currentLevel - 1].name);
+}
+
+// action to move back to menu after last level
+function backToMenu() {
+    resetVariables(true, true, true);
+    this.scene.stop();
+    this.scene.start("menu");
 }
 
 // Resets variables
@@ -921,34 +949,6 @@ function isOnFloor() {
         return true;
     }
     return false;
-}
-
-// Handle finish -> increment level, if level > exist => finishAll, otherwise finish + neues Level
-function handleFinish() {
-    currentLevel++;
-    Config.startCurrentLevel = currentLevel;
-    totalFails += fails;
-
-    this.scene.stop();
-    if (currentLevel <= levels.length) {
-        alreadyPreloaded = false;
-        this.scene.start("finishedlevel", { music: music, nextLevel: nextLevel, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails });
-    } else {
-        this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, totalFails: totalFails });
-    }
-}
-
-function nextLevel() {
-    resetVariables(true, true);
-    this.scene.stop();
-    this.scene.start(levels[currentLevel - 1].name);
-}
-
-// action to move back to menu after last level
-function backToMenu() {
-    resetVariables(true, true, true);
-    this.scene.stop();
-    this.scene.start("menu");
 }
 
 //platforms collider
