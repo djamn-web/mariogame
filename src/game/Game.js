@@ -597,10 +597,10 @@ class BaseLevel extends Phaser.Scene {
 
     createTexts() {
         scoreText = this.createText(16, 16, messages.score_message.replace("{0}", score).replace("{1}", totalPossiblePointsInLevel), '22px', '#000', '#000', 0, "bold");
-        coinsText = this.createText(16, 40, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0, "bold");
-        failsText = this.createText(16, 64, messages.failscounter_message + fails, '22px', '#000', '#000', 0, "bold");
+        gameTimeText = this.createText(16, 40, messages.gametime.replace("{0}", Util.formatTime(gameTime)), '22px', '#000', '#000', 0, "bold");
+        coinsText = this.createText(16, 64, messages.coins_message.replace("{0}", coinsAmount).replace("{1}", totalPossibleCoinsInLevel), '22px', '#000', '#000', 0, "bold");
+        failsText = this.createText(16, 88, messages.failscounter_message + fails, '22px', '#000', '#000', 0, "bold");
         // jumpsText = this.createText(16, 88, messages.jumpscounter_message + jumps, '22px', '#000', '#000', 0, "bold");
-        gameTimeText = this.createText(16, 88, messages.gametime.replace("{0}", Util.formatTime(gameTime)), '22px', '#000', '#000', 0, "bold"); // TODO
     }
 
 }
