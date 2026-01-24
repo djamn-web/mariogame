@@ -1,5 +1,6 @@
 import { Config } from './Config.js';
 import { messages } from './Messages.js';
+import { Util } from './Util.js'
 
 const { width, height } = Config.canvas;
 
@@ -10,7 +11,8 @@ export class FinishedLevel extends Phaser.Scene {
         createText(this, width * 0.5, height / 3, messages.title_won, '40px', '#000', '#000', 0.8)
         createText(this, width * 0.5, height / 2.3, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.42, height / 2, getFinishFailsMessage(data.fails), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.5, height / 1.6, messages.title_won_sub, '32px', '#000', '#000', 0.5)
+        createText(this, width * 0.4475, height / 1.8, messages.menu_gametime.replace("{0}", Util.formatTime(data.gameTime)), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.5, height / 1.4, messages.title_won_sub, '32px', '#000', '#000', 0.5)
 
         data.music.stop()
         data.stageclear.play();
@@ -30,7 +32,8 @@ export class FinishedLastLevel extends Phaser.Scene {
         createText(this, width * 0.5, height / 2.1, getFinishScoreMessage(data), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.42, height / 1.9, getFinishFailsMessage(data.fails), '25px', '#000', '#000', 0.5)
         createText(this, width * 0.465, height / 1.72, getFinishFailsMessage(data.totalFails, true), '25px', '#000', '#000', 0.5)
-        createText(this, width * 0.5, height / 1.5, messages.reload, '32px', '#000', '#000', 0.6)
+        createText(this, width * 0.4475, height / 1.57, messages.menu_gametime.replace("{0}", Util.formatTime(data.gameTime)), '25px', '#000', '#000', 0.5)
+        createText(this, width * 0.5, height / 1.3, messages.reload, '32px', '#000', '#000', 0.6)
 
         data.music.stop()
         data.stageclear.play();
@@ -141,6 +144,6 @@ function getFinishFailsMessage(fails, isTotalFails = false) {
     const singularKey = isTotalFails ? 'finish_total_fail' : 'finish_fail';
     const pluralKey = isTotalFails ? 'finish_total_fails' : 'finish_fails';
     const messageKey = fails === 1 ? singularKey : pluralKey;
-    
+
     return messages[messageKey].replace("{0}", fails);
 }
