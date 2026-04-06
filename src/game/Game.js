@@ -184,7 +184,8 @@ class BaseLevel extends Phaser.Scene {
             jump: 'W',
             shoot1: 'F',
             shoot2: 'M',
-            jump2: 'SPACE'
+            jump2: 'SPACE',
+            cheat: 'N'
         });
 
         // Collision handling
@@ -231,13 +232,13 @@ class BaseLevel extends Phaser.Scene {
         } else { // If player stands still -> No movement, frame 3
             mario.body.setVelocityX(0);
             if (!isDying) mario.setFrame(Config.player.frames.standingStillFrame);
-        }
+        }        
 
-        if (Config.player.cheat && !isDying && cursors.up.isDown) {
+        if (Config.player.cheat && !isDying && hotkeys.cheat.isDown) {
             fly();
         }
 
-        if (!Config.player.cheat && !isDying && (Phaser.Input.Keyboard.JustDown(hotkeys.jump) || Phaser.Input.Keyboard.JustDown(hotkeys.jump2) || Phaser.Input.Keyboard.JustDown(cursors.up))) {
+        if (!isDying && (Phaser.Input.Keyboard.JustDown(hotkeys.jump) || Phaser.Input.Keyboard.JustDown(hotkeys.jump2) || Phaser.Input.Keyboard.JustDown(cursors.up))) {
             jump();
         }
 
@@ -681,6 +682,22 @@ class Level4 extends BaseLevel {
     }
 }
 
+class Level5 extends BaseLevel {
+    preload() {
+        super.preload();
+    }
+
+    create() {
+        level = this;
+        super.create();
+    }
+
+    update() {
+        super.update();
+    }
+}
+
+
 
 function handleBreakingIce(breakingIce) {
     if (!breakingIce.active) return;
@@ -1039,6 +1056,7 @@ let levels = [
     { name: 'level2', classRef: Level2 },
     { name: 'level3', classRef: Level3 },
     { name: 'level4', classRef: Level4 },
+    { name: 'level5', classRef: Level5 },
 ];
 
 let game = new Phaser.Game(Config.canvas);  //main game instance - using the Config object

@@ -53,5 +53,6 @@ export const AssetConfig = {
         { key: 'level2', path: 'game/assets/levels/level2.json' },
         { key: 'level3', path: 'game/assets/levels/level3.json' },
         { key: 'level4', path: 'game/assets/levels/level4.json' },
+        { key: 'level5', path: 'game/assets/levels/level5.json' },
     ]
 };
