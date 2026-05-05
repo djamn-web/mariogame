@@ -138,7 +138,7 @@
                  "gid":404,
                  "height":50,
                  "id":22,
-                 "name":"goomba-NO",
+                 "name":"goomba",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -333,18 +333,6 @@
                  "width":50,
                  "x":592,
                  "y":208
-                }, 
-                {
-                 "gid":401,
-                 "height":176,
-                 "id":45,
-                 "name":"fake-flag",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":160,
-                 "y":992
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -7,6 +7,7 @@ const messages = {
     menu_level2: "Level 2",
     menu_level3: "Level 3",
     menu_level4: "Level 4",
+    menu_level5: "Level 5",
     title_won_all: "Congratulations!",
     title_won_all_sub: "You have finished every level!",
     reload: "(You will soon be forwarded back to the menu)",
@@ -25,7 +26,8 @@ const messages = {
     finish_fails: "Your fails: {0} fails",
     finish_total_fail: "Your total fails: {0} fail",
     finish_total_fails: "Your total fails: {0} fails",
-    christmas_event: "Christmas Special"
+    christmas_event: "Christmas Special",
+    ragebait_event: "Ragebait"
 };
 
 export { messages };
