@@ -38,6 +38,7 @@ export const AssetConfig = {
         { key: 'fireball', path: 'game/assets/music/fireballnew.ogg' },
         { key: 'savepoint', path: 'game/assets/music/savepointnew.ogg' },
         { key: 'pop', path: 'game/assets/music/bulletpopnew.ogg' },
+        { key: 'small-explosion', path: 'game/assets/music/small-explosion.ogg' },
     ],
     spritesheets: [
         { key: 'button', path: 'game/assets/spritesheets/levelbutton.png', frameWidth: 64, frameHeight: 64 },
@@ -47,6 +48,7 @@ export const AssetConfig = {
         { key: 'goomba', path: 'game/assets/spritesheets/goombaspritesheet.png', frameWidth: 50, frameHeight: 50 },
         { key: 'platforms', path: 'game/assets/spritesheets/movingplatforms.png', frameWidth: 128, frameHeight: 32 },
         { key: 'breaking-ice', path: 'game/assets/spritesheets/breaking-ice.png', frameWidth: 32, frameHeight: 32 },
+        { key: 'explosion', path: 'game/assets/spritesheets/explosion.png', frameWidth: 32, frameHeight: 32 },
     ],
     tilemaps: [
         { key: 'level1', path: 'game/assets/levels/level1.json' },
