@@ -42,12 +42,14 @@ let bullets, fireballs, platforms, coins, goombas, goombaWalls, breakingIces;
 // Texts
 let scoreText, failsText, jumpsText, coinsText, gameTimeText;
 
-// music
-let music, stageclear, death, coinsound, jumpsound, pop, fire;
+// audio
+let music, stageclear, death, coinsound, jumpsound, pop, fire, explosionSound;
 
 // Elements handling
 let volumeSlider, sliderMinus, sliderPlus, reloadGameButton, homeButton, fullscreenButton;
 let snowflakes = [];
+
+let isExploding = false;
 
 class Preload {
     preload() {
@@ -79,6 +81,7 @@ class Preload {
         fire = this.sound.add('fireball');
         pop = this.sound.add('pop');
         coinsound = this.sound.add('coinsound');
+        explosionSound = this.sound.add('small-explosion');
 
         music.setVolume(sliderValue);
         jumpsound.setVolume(sliderValue);
@@ -87,6 +90,7 @@ class Preload {
         fire.setVolume(sliderValue);
         pop.setVolume(sliderValue);
         coinsound.setVolume(sliderValue);
+        explosionSound.setVolume(sliderValue);
 
         this.anims.create({
             key: Config.player.frames.framesName,
@@ -106,6 +110,13 @@ class Preload {
             frameRate: Config.breakingIce.frames.frameRate,
             repeat: Config.breakingIce.frames.repeat,
             hideOnComplete: false
+        });
+        this.anims.create({
+            key: Config.explosion.frames.framesName,
+            frames: this.anims.generateFrameNumbers('explosion', { frames: Config.explosion.frames.explosionAnimation }),
+            frameRate: Config.explosion.frames.frameRate,
+            repeat: Config.explosion.frames.repeat,
+            hideOnComplete: true
         });
 
         this.scene.start(Config.startScene);
@@ -169,7 +180,9 @@ class BaseLevel extends Phaser.Scene {
         mario.setFlipX(Config.player.initialFlip);
         mario.body.setMaxVelocity(Config.player.maxVelocityX, Config.player.maxVelocityY);  //the player will fall through plattforms if gravity is accelerating it to more than 1000px/s
         mario.colliders = {};
+
         isDying = false;
+        isExploding = false;
 
         // Camera
         camera = this.cameras.main;
@@ -232,7 +245,7 @@ class BaseLevel extends Phaser.Scene {
         } else { // If player stands still -> No movement, frame 3
             mario.body.setVelocityX(0);
             if (!isDying) mario.setFrame(Config.player.frames.standingStillFrame);
-        }        
+        }
 
         if (Config.player.cheat && !isDying && hotkeys.cheat.isDown) {
             fly();
@@ -314,6 +327,7 @@ class BaseLevel extends Phaser.Scene {
         fire.setVolume(sliderValue);
         pop.setVolume(sliderValue);
         coinsound.setVolume(sliderValue);
+        explosionSound.setVolume(sliderValue);
     }
 
     onTimerTick() {
@@ -493,10 +507,17 @@ class BaseLevel extends Phaser.Scene {
             key: 'flag',
         })
 
-        for (const finishFlag of finishFlags) {
-            this.physics.world.enable(finishFlag);
-            finishFlag.body.allowGravity = false;
-            finishFlag.body.immovable = true;
+        let fakeFinishFlags = map.createFromObjects('gameobjects', {
+            name: 'fake-flag',
+            key: 'flag',
+        })
+
+        const allFlags = [...finishFlags, ...fakeFinishFlags]
+
+        for (const flag of allFlags) {
+            this.physics.world.enable(flag);
+            flag.body.allowGravity = false;
+            flag.body.immovable = true;
         }
 
         coins = map.createFromObjects('gameobjects', {
@@ -560,6 +581,7 @@ class BaseLevel extends Phaser.Scene {
         // var shape = this.rexUI.add.roundRectangle(goombas[0].x, goombas[0].y - goombas[0].height/2, 1,1, 1, 0x000);
 
         this.physics.add.overlap(mario, finishFlags, handleFinish, null, this);
+        this.physics.add.overlap(mario, fakeFinishFlags, handleFakeFinish, null, this);
         this.physics.add.overlap(mario, goombas, handleGoombaHit, null, this);
         this.physics.add.overlap(mario, coins, collectCoins, null, this);
         this.physics.add.overlap(goombas, goombaWalls, handleGoombaWallCollision, null, this);
@@ -864,6 +886,27 @@ function handleFinish() {
     } else {
         this.scene.start("finishedlastlevel", { music: music, backToMenu: backToMenu, stageclear: stageclear, score: score, maxScore: totalPossiblePointsInLevel, fails: fails, totalFails: totalFails, gameTime: gameTime });
     }
+}
+
+function handleFakeFinish() {
+    if (isExploding) return;
+
+    isExploding = true;
+    isDying = true;
+    const explosionAnim = level.add.sprite(mario.x, mario.y, 'explosion');
+    explosionAnim.anims.play(Config.explosion.frames.framesName);
+    explosionSound.play();
+
+    mario.visible = false;
+    mario.body.immovable = true;
+    mario.body.allowGravity = false;
+    mario.body.velocity.x = 0;
+    mario.body.velocity.y = 0;
+
+    level.time.delayedCall(1650, () => {
+        incrementFails();
+        restartGame();
+    }, [], this)
 }
 
 function nextLevel() {

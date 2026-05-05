@@ -80,6 +80,16 @@ class Config {
         }
     }
 
+    static explosion = {
+        frames: {
+            initialFrame: 0,
+            framesName: 'explosion',
+            breakingAnimation: [0, 1, 2, 3, 4, 5],
+            frameRate: 10, // two frames per second
+            repeat: 0,
+        }
+    }
+
     static goomba = {
         name: 'goomba',
         collideWithWorldBounds: true,
