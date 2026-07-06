@@ -42,6 +42,8 @@ export const AssetConfig = {
     ],
     spritesheets: [
         { key: 'button', path: 'game/assets/spritesheets/levelbutton.png', frameWidth: 64, frameHeight: 64 },
+        { key: 'prevbutton', path: 'game/assets/spritesheets/previousbutton.png', frameWidth: 64, frameHeight: 64 },
+        { key: 'nextbutton', path: 'game/assets/spritesheets/nextbutton.png', frameWidth: 64, frameHeight: 64 },
         { key: 'bricks', path: 'game/assets/spritesheets/bricks.png', frameWidth: 32, frameHeight: 32 },
         { key: 'buttons', path: 'game/assets/spritesheets/buttons.png', frameWidth: 64, frameHeight: 64 },
         { key: 'mario', path: 'game/assets/spritesheets/mariospritesheet.png', frameWidth: 50, frameHeight: 50 },
