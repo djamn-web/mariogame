@@ -256,7 +256,7 @@ class BaseLevel extends Phaser.Scene {
         }
 
         // If player is not on floor and jumps -> frame 5
-        if (!isDying && (!onFloor() && hotkeys.jump.isDown || !onFloor() && hotkeys.jump2.isDown || !onFloor() && cursors.up.isDown || !onFloor() && isJump)) { mario.setFrame(Config.player.frames.jumpFrame); }
+        if (!isDying && !onFloor() && (hotkeys.jump.isDown || hotkeys.jump2.isDown || cursors.up.isDown || isJump)) { mario.setFrame(Config.player.frames.jumpFrame); }
 
         if (!isDying && mario.body.y > map.heightInPixels) { playerDie(false); }
         if (!isDying && isFire) mario.setFrame(Config.player.frames.fireFrame);
@@ -279,7 +279,7 @@ class BaseLevel extends Phaser.Scene {
                 let shouldSetback = false;
 
                 // Check X direction
-                if (setbackX !== undefined || setbackX !== -1) {
+                if (setbackX !== undefined && setbackX !== -1) {
                     if (bullet.body.velocity.x > 0) {
                         shouldSetback = bullet.x >= setbackX;
                     } else if (bullet.body.velocity.x < 0) {
@@ -288,7 +288,7 @@ class BaseLevel extends Phaser.Scene {
                 }
 
                 // Check Y direction (if X didn't trigger)
-                if (!shouldSetback && setbackY !== undefined || setbackY !== -1) {
+                if (!shouldSetback && (setbackY !== undefined && setbackY !== -1)) {
                     if (bullet.body.velocity.y > 0) {
                         shouldSetback = bullet.y >= setbackY;
                     } else if (bullet.body.velocity.y < 0) {
@@ -309,7 +309,7 @@ class BaseLevel extends Phaser.Scene {
         }
 
         snowflakes = snowflakes.filter(snowflake => {
-            if (snowflake.y >= map.widthInPixels) {
+            if (snowflake.y >= map.heightInPixels) {
                 snowflake.destroy();
                 return false;
             }
@@ -319,15 +319,6 @@ class BaseLevel extends Phaser.Scene {
         for (const breakingIce of breakingIces) {
             handleBreakingIce(breakingIce);
         }
-
-        music.setVolume(sliderValue);
-        jumpsound.setVolume(sliderValue);
-        stageclear.setVolume(sliderValue);
-        death.setVolume(sliderValue);
-        fire.setVolume(sliderValue);
-        pop.setVolume(sliderValue);
-        coinsound.setVolume(sliderValue);
-        explosionSound.setVolume(sliderValue);
     }
 
     onTimerTick() {
@@ -420,7 +411,10 @@ class BaseLevel extends Phaser.Scene {
 
             input: 'pan', // 'drag'|'click'null
             valuechangeCallback: function (value) {
-                if (alreadyInitialized) sliderValue = 1 - value;
+                if (alreadyInitialized) {
+                    sliderValue = 1 - value;
+                    updateAudioVolumes(sliderValue);
+                }
             },
         }).layout();
         volumeSlider.setScrollFactor(0);
@@ -586,8 +580,8 @@ class BaseLevel extends Phaser.Scene {
         this.physics.add.overlap(mario, coins, collectCoins, null, this);
         this.physics.add.overlap(goombas, goombaWalls, handleGoombaWallCollision, null, this);
 
-        mario.colliders.bulletsCollider = this.physics.add.overlap(mario, bulletsNormal, playerDie, null, this);
-        mario.colliders.bulletsCollider = this.physics.add.overlap(mario, bulletsRed, handleExplosionDying, null, this);
+        mario.colliders.bulletsNormalCollider = this.physics.add.overlap(mario, bulletsNormal, playerDie, null, this);
+        mario.colliders.bulletsRedCollider = this.physics.add.overlap(mario, bulletsRed, handleExplosionDying, null, this);
         mario.colliders.platformsCollider = this.physics.add.collider(mario, platforms, mptouchedown);
         mario.colliders.iceCollider = this.physics.add.collider(mario, breakingIces);
 
@@ -839,7 +833,8 @@ function playerDie(showDieAnimation = true) {
         level.physics.world.removeCollider(mario.colliders.floorLayerCollider);
         level.physics.world.removeCollider(mario.colliders.enemyLayerCollider);
         level.physics.world.removeCollider(mario.colliders.platformsCollider);
-        level.physics.world.removeCollider(mario.colliders.bulletsCollider);
+        level.physics.world.removeCollider(mario.colliders.bulletsNormalCollider);
+        level.physics.world.removeCollider(mario.colliders.bulletsRedCollider);
 
         level.time.delayedCall(1650, () => {
             incrementFails();
@@ -911,6 +906,17 @@ function handleExplosionDying() {
     }, [], this)
 }
 
+function updateAudioVolumes(volume) {
+    music.setVolume(volume);
+    jumpsound.setVolume(volume);
+    stageclear.setVolume(volume);
+    death.setVolume(volume);
+    fire.setVolume(volume);
+    pop.setVolume(volume);
+    coinsound.setVolume(volume);
+    explosionSound.setVolume(volume);
+}
+
 function nextLevel() {
     resetVariables(true, true);
     this.scene.stop();
@@ -938,6 +944,7 @@ function resetVariables(resetCounter, resetLevels, resetTotalFails = false) {
     isMovingLeft = false;
     isMovingRight = false;
     maxFireballs = Config.fire.maxFireballs;
+    snowflakes = [];
 }
 
 function destroyEnemy(fireball, entity) {
