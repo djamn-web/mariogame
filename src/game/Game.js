@@ -476,17 +476,17 @@ class BaseLevel extends Phaser.Scene {
         platforms.addMultiple(whiteplatforms);
         platforms.addMultiple(brownplatforms);
 
-        bullets = map.createFromObjects('gameobjects', {
+        const bulletsNormal = map.createFromObjects('gameobjects', {
             name: 'bullet',
             key: 'bullet',
         })
 
-        const redBullets = map.createFromObjects('gameobjects', {
+        const bulletsRed = map.createFromObjects('gameobjects', {
             name: 'bullet-red',
             key: 'bullet-red',
         });
 
-        bullets.push(...redBullets);
+        bullets = [...bulletsNormal, ...bulletsRed];
 
         for (const bullet of bullets) {
             this.physics.world.enable(bullet);
@@ -581,15 +581,17 @@ class BaseLevel extends Phaser.Scene {
         // var shape = this.rexUI.add.roundRectangle(goombas[0].x, goombas[0].y - goombas[0].height/2, 1,1, 1, 0x000);
 
         this.physics.add.overlap(mario, finishFlags, handleFinish, null, this);
-        this.physics.add.overlap(mario, fakeFinishFlags, handleFakeFinish, null, this);
+        this.physics.add.overlap(mario, fakeFinishFlags, handleExplosionDying, null, this);
         this.physics.add.overlap(mario, goombas, handleGoombaHit, null, this);
         this.physics.add.overlap(mario, coins, collectCoins, null, this);
         this.physics.add.overlap(goombas, goombaWalls, handleGoombaWallCollision, null, this);
 
-        this.physics.add.collider(goombas, floorLayer);
+        mario.colliders.bulletsCollider = this.physics.add.overlap(mario, bulletsNormal, playerDie, null, this);
+        mario.colliders.bulletsCollider = this.physics.add.overlap(mario, bulletsRed, handleExplosionDying, null, this);
         mario.colliders.platformsCollider = this.physics.add.collider(mario, platforms, mptouchedown);
-        mario.colliders.bulletsCollider = this.physics.add.collider(mario, bullets, playerDie, null, this);
         mario.colliders.iceCollider = this.physics.add.collider(mario, breakingIces);
+
+        this.physics.add.collider(goombas, floorLayer);
         this.physics.add.collider(coins, floorLayer);
         this.physics.add.collider(coins, breakingIces);
         this.physics.add.collider(coins, enemyLayer);
@@ -888,7 +890,7 @@ function handleFinish() {
     }
 }
 
-function handleFakeFinish() {
+function handleExplosionDying() {
     if (isExploding) return;
 
     isExploding = true;
