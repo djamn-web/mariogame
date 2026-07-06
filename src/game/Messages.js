@@ -26,7 +26,7 @@ const messages = {
     finish_fails: "Your fails: {0} fails",
     finish_total_fail: "Your total fails: {0} fail",
     finish_total_fails: "Your total fails: {0} fails",
-    christmas_event: "Christmas Special",
+    christmas_event: "Christmas",
     ragebait_event: "Ragebait"
 };
 
