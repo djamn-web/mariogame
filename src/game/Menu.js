@@ -1,4 +1,4 @@
-import { Config } from './Config.js';
+import { Config } from './configs/Config.js';
 import { messages } from './Messages.js';
 
 export class Menu {

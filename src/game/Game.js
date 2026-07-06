@@ -1,7 +1,7 @@
-import { Config } from './Config.js';
+import { Config } from './configs/Config.js';
 import { Util } from './Util.js';
 import { messages } from './Messages.js';
-import { AssetConfig } from './AssetConfig.js';
+import { AssetConfig } from './configs/AssetConfig.js';
 import { Menu } from './Menu.js';
 import { FinishedLevel, FinishedLastLevel } from './LevelFinish.js';
 
