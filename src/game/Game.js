@@ -1056,7 +1056,7 @@ function onFloor() {
 
 function toggleFullscreenMode() {
     const { scale, device, canvas } = game;
-    const { os, fullscreen } = device;
+    const { fullscreen } = device;
 
     if (scale.isFullscreen) {
         return scale.stopFullscreen();
@@ -1069,7 +1069,7 @@ function toggleFullscreenMode() {
     canvas[fullscreen.request]();
     showMobileFullscreenHint();
 
-    if (screen.orientation && screen.orientation.lock) {
+    if (screen.orientation?.lock) {
         screen.orientation.lock('landscape')
             .then(() => console.log('Screen orientation locked to landscape'))
             .catch((err) => console.log('Orientation lock failed:', err.name));
